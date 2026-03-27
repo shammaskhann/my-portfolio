@@ -29,17 +29,17 @@ const PORTFOLIO_DATA = {
 
   skills: [
     "Flutter", "Firebase", "API Integrationss", "GetX", "Bloc",
-    "Clean Architecture", "Google Maps SDK","AdMob","ZegoCloud", "FCM - Notifications", "NAFATH API", "WebView"
+    "Clean Architecture", "Google Maps SDK", "AdMob", "ZegoCloud", "FCM - Notifications", "NAFATH API", "WebView"
   ],
 
   projects: [
-        {
+    {
       id: 1,
       title: "HammerLoop",
       category: "Workforce Platform",
       description:
         "Construction job-matching platform with dual worker/employer roles, trade-skill filtering, geolocation-based search, and real-time push notifications.",
-      stack: ["Flutter", "API Integrations", "OpenStreetMap", "Firebase" , "FCM"],
+      stack: ["Flutter", "API Integrations", "OpenStreetMap", "Firebase", "FCM"],
       coverUrl: hammerloopImg,
       links: [
         { label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.hammerloop.app&pcampaignid=web_share", icon: "▶" },
@@ -127,16 +127,54 @@ const PORTFOLIO_DATA = {
       ],
       color: "#F3E5F5", accent: "#6A1B9A", emoji: "✨",
     },
-    
+
+  ],
+
+  experience: [
+    {
+      title: "Information Technology (Intern)",
+      company: "Archroma Pakistan Limited",
+      description:
+        "Assisted in integrating FBR e-Invoicing functionality using PRAL-provided APIs within a .NET C# environment.\nIntegrated SAP Crystal Reports into a C# application for e-invoice generation with FBR QR code support.",
+      period: "Aug 2025 - Sept 2025",
+      links: {
+        "offer letter": "https://drive.google.com/file/d/1MvjNEOIsmHDsYwrmjMC8sV1S6ayIy5Q8/view?usp=sharing",
+        "internship certificate": "https://drive.google.com/file/d/1H70ggOO8VRVYnc-vbSIcCys8KcQbJvBa/view?usp=sharing",
+      }
+    },
+    {
+      title: "Mobile App Developer",
+      company: "iSky Information Technology",
+      description:
+        "Developed bilingual (Arabic/English) Flutter app with Google Maps integration.\nOptimized app performance and fixed memory leaks using GetX statemanagement.\nCreated custom UI components following Middle Eastern design standard",
+      period: "Nov 2024 - Mar 2025",
+      links: {
+        "offer letter": "https://drive.google.com/file/d/1UL37WOkYHzBfYP9iKSV9IX90oCCR9LeK/view?usp=sharing",
+        "exp letter": "https://drive.google.com/file/d/1apWgMwTHIRp6nAmMkhtbSnHDSVgKiBpb/view?usp=sharing"
+      }
+    },
+  ],
+
+  education: [
+    {
+      title: "BS in Computer Science",
+      institution: "Bahria University Karachi",
+      description:
+        "Pursuing a Bachelor's degree in Computer Science with a focus on software development, algorithms, and data structures. Engaged in various projects and coursework to enhance programming skills and problem-solving abilities.",
+      period: "Oct 2022 - May 2026",
+      links: {
+        "transcript": "https://drive.google.com/file/d/1ak3QModyEQ-dymdkKwYa8dMkxbYcwfjx/view?usp=sharing",
+      }
+    },
   ],
 };
 
 // ─────────────────────────────────────────────
 // EMAILJS CONFIG — reads from .env
 // ─────────────────────────────────────────────
-const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 // ─────────────────────────────────────────────
 // ANIMATION VARIANTS
@@ -170,8 +208,8 @@ function Tag({ label, accent }) {
   return (
     <span style={{
       background: accent + "18", color: accent, border: `1px solid ${accent}30`,
-      borderRadius: "clamp(4px, 1vw, 6px)", 
-      padding: "clamp(2px, 0.5vw, 2px) clamp(8px, 2vw, 10px)", 
+      borderRadius: "clamp(4px, 1vw, 6px)",
+      padding: "clamp(2px, 0.5vw, 2px) clamp(8px, 2vw, 10px)",
       fontSize: "clamp(10px, 2vw, 11px)",
       fontFamily: "'DM Mono', monospace", letterSpacing: "0.04em", fontWeight: 500,
       whiteSpace: "nowrap",
@@ -188,9 +226,9 @@ function LinkButton({ link, accent }) {
       whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
       className="btn"
       style={{
-        padding: "clamp(6px, 1.5vw, 7px) clamp(12px, 3vw, 16px)", 
-        borderRadius: "clamp(6px, 1.5vw, 8px)", 
-        fontSize: "clamp(11px, 2.5vw, 12px)", 
+        padding: "clamp(6px, 1.5vw, 7px) clamp(12px, 3vw, 16px)",
+        borderRadius: "clamp(6px, 1.5vw, 8px)",
+        fontSize: "clamp(11px, 2.5vw, 12px)",
         background: accent, color: "#fff", border: "none",
         whiteSpace: "nowrap",
       }}
@@ -223,14 +261,14 @@ function TestimonialModal({ project, onClose }) {
         <button
           onClick={onClose}
           style={{
-            position: "absolute", 
-            top: "clamp(12px, 3vw, 16px)", 
+            position: "absolute",
+            top: "clamp(12px, 3vw, 16px)",
             right: "clamp(12px, 3vw, 16px)",
             background: "#f0f0f0", color: "var(--text-primary)", border: "none",
-            borderRadius: "clamp(6px, 2vw, 8px)", 
-            width: "clamp(28px, 6vw, 32px)", 
+            borderRadius: "clamp(6px, 2vw, 8px)",
+            width: "clamp(28px, 6vw, 32px)",
             height: "clamp(28px, 6vw, 32px)",
-            cursor: "pointer", 
+            cursor: "pointer",
             fontSize: "clamp(16px, 4vw, 18px)",
             display: "flex", alignItems: "center", justifyContent: "center",
             fontWeight: "bold",
@@ -238,22 +276,22 @@ function TestimonialModal({ project, onClose }) {
         >
           ×
         </button>
-        
+
         <h3 style={{
-          fontFamily: "'Syne', sans-serif", 
+          fontFamily: "'Syne', sans-serif",
           fontSize: "clamp(18px, 4vw, 24px)",
-          fontWeight: 800, color: project.accent, 
+          fontWeight: 800, color: project.accent,
           marginBottom: "clamp(4px, 2vw, 8px)",
           paddingRight: "clamp(32px, 8vw, 48px)",
         }}>
           {project.title} - Client Testimonial
         </h3>
-        
+
         <img
           src={project.testimonialImg}
           alt={`${project.title} testimonial`}
           style={{
-            width: "100%", 
+            width: "100%",
             borderRadius: "clamp(8px, 2vw, 12px)",
             border: `2px solid ${project.accent}30`,
             marginTop: "clamp(12px, 3vw, 16px)",
@@ -277,25 +315,143 @@ function ProjectCard({ project, index }) {
     <>
       <AnimatePresence>
         {showTestimonial && project.testimonialImg && (
-          <TestimonialModal 
-            project={project} 
-            onClose={() => setShowTestimonial(false)} 
+          <TestimonialModal
+            project={project}
+            onClose={() => setShowTestimonial(false)}
           />
         )}
       </AnimatePresence>
 
+      <motion.div
+        ref={ref} custom={index} variants={fadeUp}
+        initial="hidden" animate={inView ? "visible" : "hidden"}
+        onHoverStart={() => setHovered(true)} onHoverEnd={() => setHovered(false)}
+        style={{
+          background: project.color, borderRadius: "clamp(12px, 3vw, 20px)",
+          padding: "clamp(20px, 4vw, 28px)",
+          display: "flex", flexDirection: "column", gap: "clamp(10px, 2vw, 14px)", cursor: "default",
+          border: `1.5px solid ${project.accent}18`, position: "relative", overflow: "hidden",
+          transition: "box-shadow 0.3s",
+          boxShadow: hovered
+            ? `0 16px 48px ${project.accent}22, 0 2px 12px ${project.accent}14`
+            : "0 2px 12px rgba(0,0,0,0.06)",
+        }}
+      >
+        <div style={{
+          position: "absolute", top: -12, right: 12, fontSize: "clamp(60px, 15vw, 88px)",
+          opacity: 0.07, pointerEvents: "none", userSelect: "none", lineHeight: 1,
+        }}>
+          {project.emoji}
+        </div>
+
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{
+              fontSize: "clamp(10px, 2vw, 11px)", fontFamily: "'DM Mono', monospace", color: project.accent,
+              letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 4, opacity: 0.8,
+            }}>
+              {project.category}
+            </div>
+            <h3 style={{
+              fontFamily: "'Syne', sans-serif", fontSize: "clamp(18px, 4vw, 22px)", fontWeight: 800,
+              color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em",
+            }}>
+              {project.title}
+            </h3>
+          </div>
+          <span style={{ fontSize: "clamp(24px, 5vw, 30px)", flexShrink: 0 }}>{project.emoji}</span>
+        </div>
+
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: "clamp(13px, 2.5vw, 14px)",
+          color: "var(--text-secondary)",
+          margin: 0,
+          lineHeight: 1.65
+        }}>
+          {project.description}
+        </p>
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(4px, 1vw, 6px)" }}>
+          {project.stack.map((t) => <Tag key={t} label={t} accent={project.accent} />)}
+        </div>
+
+        {project.coverUrl && (
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            style={{
+              borderRadius: "clamp(8px, 2vw, 12px)", overflow: "hidden",
+              border: `1.5px solid ${project.accent}28`,
+              background: project.accent + "12",
+            }}
+          >
+            <img
+              src={project.coverUrl}
+              alt={`${project.title} screenshot`}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+          </motion.div>
+        )}
+
+        {project.links.length > 0 && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(6px, 1.5vw, 8px)", marginTop: 2 }}>
+            {project.links.map((l) => <LinkButton key={l.label} link={l} accent={project.accent} />)}
+          </div>
+        )}
+
+        {project.testimonialImg && (
+          <motion.button
+            whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+            onClick={() => setShowTestimonial(true)}
+            className="btn"
+            style={{
+              marginTop: 4, width: "100%",
+              background: project.accent, border: "none",
+              color: "#fff",
+              borderRadius: "clamp(8px, 2vw, 10px)",
+              padding: "clamp(8px, 2vw, 10px) clamp(14px, 3vw, 20px)",
+            }}
+          >
+            <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>💬</span>
+            <span>View Client Testimonial</span>
+          </motion.button>
+        )}
+      </motion.div>
+    </>
+  );
+}
+
+// ─────────────────────────────────────────────
+// TIMELINE CARD (Experience & Education)
+// ─────────────────────────────────────────────
+function TimelineCard({ item, index, type }) {
+  const [hovered, setHovered] = useState(false);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const accent = type === "experience" ? "#1565C0" : "#2E7D32";
+  const bg = type === "experience" ? "#E3F2FD" : "#C8E6C9";
+  const emoji = type === "experience" ? "💼" : "🎓";
+  const subtitle = type === "experience" ? item.company : item.institution;
+
+  return (
     <motion.div
       ref={ref} custom={index} variants={fadeUp}
       initial="hidden" animate={inView ? "visible" : "hidden"}
       onHoverStart={() => setHovered(true)} onHoverEnd={() => setHovered(false)}
       style={{
-        background: project.color, borderRadius: "clamp(12px, 3vw, 20px)", 
-        padding: "clamp(20px, 4vw, 28px)",
-        display: "flex", flexDirection: "column", gap: "clamp(10px, 2vw, 14px)", cursor: "default",
-        border: `1.5px solid ${project.accent}18`, position: "relative", overflow: "hidden",
+        background: bg, borderRadius: "clamp(12px, 3vw, 20px)",
+        padding: "clamp(20px, 4vw, 24px)",
+        display: "flex", flexDirection: "column", gap: "clamp(8px, 1.5vw, 12px)", cursor: "default",
+        border: `1.5px solid ${accent}18`, position: "relative", overflow: "hidden",
         transition: "box-shadow 0.3s",
         boxShadow: hovered
-          ? `0 16px 48px ${project.accent}22, 0 2px 12px ${project.accent}14`
+          ? `0 16px 48px ${accent}22, 0 2px 12px ${accent}14`
           : "0 2px 12px rgba(0,0,0,0.06)",
       }}
     >
@@ -303,88 +459,48 @@ function ProjectCard({ project, index }) {
         position: "absolute", top: -12, right: 12, fontSize: "clamp(60px, 15vw, 88px)",
         opacity: 0.07, pointerEvents: "none", userSelect: "none", lineHeight: 1,
       }}>
-        {project.emoji}
+        {emoji}
       </div>
 
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{
-            fontSize: "clamp(10px, 2vw, 11px)", fontFamily: "'DM Mono', monospace", color: project.accent,
+            fontSize: "clamp(10px, 2vw, 11px)", fontFamily: "'DM Mono', monospace", color: accent,
             letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 4, opacity: 0.8,
+            display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap",
           }}>
-            {project.category}
+            <span>{subtitle}</span>
+            <span style={{ opacity: 0.5 }}>•</span>
+            <span>{item.period}</span>
           </div>
           <h3 style={{
-            fontFamily: "'Syne', sans-serif", fontSize: "clamp(18px, 4vw, 22px)", fontWeight: 800,
+            fontFamily: "'Syne', sans-serif", fontSize: "clamp(16px, 3.5vw, 20px)", fontWeight: 800,
             color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em",
           }}>
-            {project.title}
+            {item.title}
           </h3>
         </div>
-        <span style={{ fontSize: "clamp(24px, 5vw, 30px)", flexShrink: 0 }}>{project.emoji}</span>
       </div>
 
-      <p style={{ 
-        fontFamily: "'DM Sans', sans-serif", 
-        fontSize: "clamp(13px, 2.5vw, 14px)", 
-        color: "var(--text-secondary)", 
-        margin: 0, 
-        lineHeight: 1.65 
+      <p style={{
+        fontFamily: "'DM Sans', sans-serif",
+        fontSize: "clamp(13px, 2.5vw, 14px)",
+        color: "var(--text-secondary)",
+        margin: 0,
+        lineHeight: 1.65,
+        whiteSpace: "pre-line",
       }}>
-        {project.description}
+        {item.description}
       </p>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(4px, 1vw, 6px)" }}>
-        {project.stack.map((t) => <Tag key={t} label={t} accent={project.accent} />)}
-      </div>
-
-      {project.coverUrl && (
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          style={{
-            borderRadius: "clamp(8px, 2vw, 12px)", overflow: "hidden",
-            border: `1.5px solid ${project.accent}28`,
-            background: project.accent + "12",
-          }}
-        >
-          <img 
-            src={project.coverUrl} 
-            alt={`${project.title} screenshot`}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
-        </motion.div>
-      )}
-
-      {project.links.length > 0 && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(6px, 1.5vw, 8px)", marginTop: 2 }}>
-          {project.links.map((l) => <LinkButton key={l.label} link={l} accent={project.accent} />)}
+      {item.links && Object.keys(item.links).length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(6px, 1.5vw, 8px)", marginTop: 4 }}>
+          {Object.entries(item.links).map(([label, url]) => (
+            <LinkButton key={label} link={{ label: label.charAt(0).toUpperCase() + label.slice(1), url, icon: "🔗" }} accent={accent} />
+          ))}
         </div>
       )}
-
-      {project.testimonialImg && (
-        <motion.button
-          whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-          onClick={() => setShowTestimonial(true)}
-          className="btn"
-          style={{
-            marginTop: 4, width: "100%",
-            background: project.accent, border: "none",
-            color: "#fff",
-            borderRadius: "clamp(8px, 2vw, 10px)",
-            padding: "clamp(8px, 2vw, 10px) clamp(14px, 3vw, 20px)",
-          }}
-        >
-          <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>💬</span>
-          <span>View Client Testimonial</span>
-        </motion.button>
-      )}
     </motion.div>
-    </>
   );
 }
 
@@ -392,11 +508,11 @@ function ProjectCard({ project, index }) {
 // CONTACT SECTION  (EmailJS powered)
 // ─────────────────────────────────────────────
 function ContactSection({ email, github, upwork }) {
-  const formRef   = useRef(null);
+  const formRef = useRef(null);
   const sectionRef = useRef(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
 
-  const [form,   setForm]   = useState({ from_name: "", reply_to: "", message: "" });
+  const [form, setForm] = useState({ from_name: "", reply_to: "", message: "" });
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
   const handleChange = (e) =>
@@ -421,8 +537,8 @@ function ContactSection({ email, github, upwork }) {
   };
 
   const sideLinks = [
-    { icon: "✉", label: "Email",  value: email,           href: `mailto:${email}` },
-    { icon: "◉", label: "GitHub", value: "shammaskhann",  href: github },
+    { icon: "✉", label: "Email", value: email, href: `mailto:${email}` },
+    { icon: "◉", label: "GitHub", value: "shammaskhann", href: github },
     { icon: "⬡", label: "Upwork", value: "Hire on Upwork", href: upwork, color: "#14a800" },
   ];
 
@@ -556,7 +672,7 @@ function ContactSection({ email, github, upwork }) {
                 <motion.button
                   type="submit" disabled={status === "sending"}
                   whileHover={status !== "sending" ? { scale: 1.03 } : {}}
-                  whileTap={status !== "sending"   ? { scale: 0.97 } : {}}
+                  whileTap={status !== "sending" ? { scale: 0.97 } : {}}
                   className="btn btn-primary"
                   style={{
                     opacity: status === "sending" ? 0.7 : 1,
@@ -650,7 +766,7 @@ function ContactSection({ email, github, upwork }) {
 // MAIN APP
 // ─────────────────────────────────────────────
 export default function Portfolio() {
-  const { name, title, tagline, email, github, upwork, skills, projects } = PORTFOLIO_DATA;
+  const { name, title, tagline, email, github, upwork, skills, projects, experience, education } = PORTFOLIO_DATA;
 
   return (
     <div className="portfolio-app">
@@ -716,12 +832,12 @@ export default function Portfolio() {
         >
           {skills.map((s) => (
             <span key={s} style={{
-              fontFamily: "'DM Mono', monospace", 
-              fontSize: "clamp(11px, 2vw, 12px)", 
+              fontFamily: "'DM Mono', monospace",
+              fontSize: "clamp(11px, 2vw, 12px)",
               color: "#666",
-              background: "#eee", 
-              padding: "clamp(5px, 1vw, 6px) clamp(10px, 2vw, 14px)", 
-              borderRadius: "clamp(6px, 1.5vw, 8px)", 
+              background: "#eee",
+              padding: "clamp(5px, 1vw, 6px) clamp(10px, 2vw, 14px)",
+              borderRadius: "clamp(6px, 1.5vw, 8px)",
               letterSpacing: "0.02em",
             }}>
               {s}
@@ -752,6 +868,52 @@ export default function Portfolio() {
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
+        </div>
+      </section>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ padding: "clamp(32px, 6vw, 64px) 0" }}>
+        <div className="divider" />
+      </div>
+
+      {/* ── EXPERIENCE & EDUCATION ── */}
+      <section className="container section" style={{ paddingTop: 0 }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: "clamp(32px, 6vw, 48px)"
+        }}>
+
+          {/* Experience */}
+          <div>
+            <AnimatedSection>
+              <motion.div variants={fadeUp} style={{ marginBottom: 32 }}>
+                <p className="section-subtitle">Career</p>
+                <h2 className="section-title">Experience</h2>
+              </motion.div>
+            </AnimatedSection>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              {experience?.map((item, i) => (
+                <TimelineCard key={`exp-${i}`} item={item} index={i} type="experience" />
+              ))}
+            </div>
+          </div>
+
+          {/* Education */}
+          <div>
+            <AnimatedSection>
+              <motion.div variants={fadeUp} style={{ marginBottom: 32 }}>
+                <p className="section-subtitle">Academic</p>
+                <h2 className="section-title">Education</h2>
+              </motion.div>
+            </AnimatedSection>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              {education?.map((item, i) => (
+                <TimelineCard key={`edu-${i}`} item={item} index={i} type="education" />
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 
