@@ -28,8 +28,8 @@ const PORTFOLIO_DATA = {
   upwork: "https://www.upwork.com/freelancers/~01d6d922e25ece0d0e",
 
   skills: [
-    "Flutter", "Firebase", "REST APIs", "GetX", "Bloc",
-    "Clean Architecture", "Node.js", "Google Maps SDK", "ZegoCloud", "FCM",
+    "Flutter", "Firebase", "API Integrationss", "GetX", "Bloc",
+    "Clean Architecture", "Google Maps SDK","AdMob","ZegoCloud", "FCM - Notifications", "NAFATH API", "WebView"
   ],
 
   projects: [
@@ -39,7 +39,7 @@ const PORTFOLIO_DATA = {
       category: "Workforce Platform",
       description:
         "Construction job-matching platform with dual worker/employer roles, trade-skill filtering, geolocation-based search, and real-time push notifications.",
-      stack: ["Flutter", "REST API", "OpenStreetMap"],
+      stack: ["Flutter", "API Integrations", "OpenStreetMap", "Firebase" , "FCM"],
       coverUrl: hammerloopImg,
       links: [
         { label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.hammerloop.app&pcampaignid=web_share", icon: "▶" },
@@ -53,7 +53,7 @@ const PORTFOLIO_DATA = {
       category: "Real Estate",
       description:
         "Bilingual property marketplace with map-based listings, auction modules, and Saudi Govt NAFATH digital identity verification.",
-      stack: ["Flutter", "Google Maps SDK", "NAFATH API", "REST API"],
+      stack: ["Flutter", "Google Maps SDK", "NAFATH API", "API Integrations"],
       coverUrl: aqareImg,
       links: [
         { label: "Play Store", url: "https://play.google.com/store/apps/details?id=net.aqare.aqareapp&pcampaignid=web_share&pli=1", icon: "▶" },
@@ -67,7 +67,7 @@ const PORTFOLIO_DATA = {
       category: "Location & Offers",
       description:
         "Bilingual store-offer explorer using Google Maps with custom markers, deep linking, and role-based access for guests, customers, and shop owners.",
-      stack: ["Flutter", "Google Maps SDK", "REST API"],
+      stack: ["Flutter", "Google Maps SDK", "API Integrations"],
       coverUrl: mapoffImg,
       links: [
         { label: "Play Store", url: "https://play.google.com/store/apps/details?id=net.mapoff.mapoffapp", icon: "▶" },
@@ -79,8 +79,8 @@ const PORTFOLIO_DATA = {
       title: "Daily Sindhyar",
       category: "News App",
       description:
-        "Sindhi-language news app wrapping dailysindhyar.com in a native WebView shell — published successfully on the Play Store.",
-      stack: ["Flutter", "WebView"],
+        "Sindhi-language news app wrapping dailysindhyar.com in a native WebView shell with Complete Admob Setup— published successfully on the Play Store.",
+      stack: ["Flutter", "WebView", "AdMob"],
       coverUrl: dailysindhyarImg,
       links: [
         { label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.dailysindhyar.app&hl=en", icon: "▶" },
@@ -186,15 +186,12 @@ function LinkButton({ link, accent }) {
     <motion.a
       href={link.url} target="_blank" rel="noopener noreferrer"
       whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+      className="btn"
       style={{
-        display: "inline-flex", alignItems: "center", justifyContent: "center",
-        gap: "clamp(4px, 1vw, 6px)",
         padding: "clamp(6px, 1.5vw, 7px) clamp(12px, 3vw, 16px)", 
         borderRadius: "clamp(6px, 1.5vw, 8px)", 
         fontSize: "clamp(11px, 2.5vw, 12px)", 
-        fontWeight: 600,
-        background: accent, color: "#fff", textDecoration: "none",
-        letterSpacing: "0.02em", fontFamily: "'DM Sans', sans-serif",
+        background: accent, color: "#fff", border: "none",
         whiteSpace: "nowrap",
       }}
     >
@@ -214,25 +211,14 @@ function TestimonialModal({ project, onClose }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      style={{
-        position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
-        background: "rgba(0,0,0,0.85)", zIndex: 9999,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        padding: "clamp(16px, 4vw, 20px)", cursor: "pointer",
-      }}
+      className="modal-overlay"
     >
       <motion.div
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20 }}
         onClick={(e) => e.stopPropagation()}
-        style={{
-          background: "#fff", 
-          borderRadius: "clamp(12px, 3vw, 20px)", 
-          padding: "clamp(20px, 5vw, 24px)",
-          maxWidth: 900, width: "100%", maxHeight: "90vh",
-          overflow: "auto", cursor: "default", position: "relative",
-        }}
+        className="modal-content"
       >
         <button
           onClick={onClose}
@@ -240,7 +226,7 @@ function TestimonialModal({ project, onClose }) {
             position: "absolute", 
             top: "clamp(12px, 3vw, 16px)", 
             right: "clamp(12px, 3vw, 16px)",
-            background: "#f0f0f0", border: "none",
+            background: "#f0f0f0", color: "var(--text-primary)", border: "none",
             borderRadius: "clamp(6px, 2vw, 8px)", 
             width: "clamp(28px, 6vw, 32px)", 
             height: "clamp(28px, 6vw, 32px)",
@@ -330,7 +316,7 @@ function ProjectCard({ project, index }) {
           </div>
           <h3 style={{
             fontFamily: "'Syne', sans-serif", fontSize: "clamp(18px, 4vw, 22px)", fontWeight: 800,
-            color: "#1a1a1a", margin: 0, letterSpacing: "-0.02em",
+            color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em",
           }}>
             {project.title}
           </h3>
@@ -341,7 +327,7 @@ function ProjectCard({ project, index }) {
       <p style={{ 
         fontFamily: "'DM Sans', sans-serif", 
         fontSize: "clamp(13px, 2.5vw, 14px)", 
-        color: "#444", 
+        color: "var(--text-secondary)", 
         margin: 0, 
         lineHeight: 1.65 
       }}>
@@ -384,17 +370,13 @@ function ProjectCard({ project, index }) {
         <motion.button
           whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
           onClick={() => setShowTestimonial(true)}
+          className="btn"
           style={{
-            display: "inline-flex", alignItems: "center", justifyContent: "center",
-            gap: "clamp(4px, 1vw, 6px)",
-            padding: "clamp(8px, 2vw, 10px) clamp(14px, 3vw, 20px)", 
-            borderRadius: "clamp(8px, 2vw, 10px)", 
-            fontSize: "clamp(11px, 2.5vw, 13px)", 
-            fontWeight: 600,
-            background: project.accent, color: "#fff", border: "none",
-            cursor: "pointer", letterSpacing: "0.02em",
-            fontFamily: "'DM Sans', sans-serif", marginTop: 4,
-            width: "100%",
+            marginTop: 4, width: "100%",
+            background: project.accent, border: "none",
+            color: "#fff",
+            borderRadius: "clamp(8px, 2vw, 10px)",
+            padding: "clamp(8px, 2vw, 10px) clamp(14px, 3vw, 20px)",
           }}
         >
           <span style={{ fontSize: "clamp(14px, 3vw, 16px)" }}>💬</span>
@@ -438,16 +420,6 @@ function ContactSection({ email, github, upwork }) {
     }
   };
 
-  const inputBase = {
-    width: "100%", padding: "14px 16px", borderRadius: 12,
-    border: "1.5px solid #e0e0e0", background: "#fff",
-    fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#1a1a1a",
-    outline: "none", transition: "border-color 0.2s", boxSizing: "border-box",
-    textAlign: "left",
-  };
-  const onFocus = (e) => (e.target.style.borderColor = "#1a1a1a");
-  const onBlur  = (e) => (e.target.style.borderColor = "#e0e0e0");
-
   const sideLinks = [
     { icon: "✉", label: "Email",  value: email,           href: `mailto:${email}` },
     { icon: "◉", label: "GitHub", value: "shammaskhann",  href: github },
@@ -455,7 +427,7 @@ function ContactSection({ email, github, upwork }) {
   ];
 
   return (
-    <section ref={sectionRef} style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(16px, 5vw, 48px) clamp(60px, 12vw, 120px)", width: "100%" }}>
+    <section ref={sectionRef} className="container section">
       {/* Section header */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -463,16 +435,10 @@ function ContactSection({ email, github, upwork }) {
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         style={{ marginBottom: 48, textAlign: "center" }}
       >
-        <p style={{
-          fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#999",
-          letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px",
-        }}>
+        <p className="section-subtitle">
           Let's Work Together
         </p>
-        <h2 style={{
-          fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)",
-          fontWeight: 800, color: "#1a1a1a", margin: "0 0 12px", letterSpacing: "-0.03em",
-        }}>
+        <h2 className="section-title">
           Get in Touch
         </h2>
         <p style={{
@@ -484,18 +450,7 @@ function ContactSection({ email, github, upwork }) {
       </motion.div>
 
       {/* Two-column layout */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "minmax(0, 1fr)",
-        gap: "clamp(20px, 4vw, 28px)",
-        alignItems: "start",
-      }}>
-        <style>{`
-          @media (min-width: 768px) {
-            .contact-grid { grid-template-columns: 1fr minmax(0, 300px) !important; }
-          }
-        `}</style>
-        <div className="contact-grid" style={{ display: "contents" }}>
+      <div className="contact-grid">
         {/* ── FORM ── */}
         <motion.div
           initial={{ opacity: 0, x: -24 }}
@@ -552,51 +507,37 @@ function ContactSection({ email, github, upwork }) {
                 }}
               >
                 {/* Name */}
-                <div style={{ textAlign: "left" }}>
-                  <label style={{
-                    display: "block", fontFamily: "'DM Mono', monospace",
-                    fontSize: 11, color: "#999", letterSpacing: "0.08em",
-                    textTransform: "uppercase", marginBottom: 7, textAlign: "left",
-                  }}>
+                <div className="form-group">
+                  <label className="form-label">
                     Your Name
                   </label>
                   <input
                     name="from_name" value={form.from_name} onChange={handleChange}
-                    placeholder="John Doe" required style={inputBase}
-                    onFocus={onFocus} onBlur={onBlur}
+                    placeholder="John Doe" required className="form-input"
                   />
                 </div>
 
                 {/* Email */}
-                <div style={{ textAlign: "left" }}>
-                  <label style={{
-                    display: "block", fontFamily: "'DM Mono', monospace",
-                    fontSize: 11, color: "#999", letterSpacing: "0.08em",
-                    textTransform: "uppercase", marginBottom: 7, textAlign: "left",
-                  }}>
+                <div className="form-group">
+                  <label className="form-label">
                     Your Email
                   </label>
                   <input
                     type="email" name="reply_to" value={form.reply_to}
                     onChange={handleChange} placeholder="john@example.com"
-                    required style={inputBase} onFocus={onFocus} onBlur={onBlur}
+                    required className="form-input"
                   />
                 </div>
 
                 {/* Message */}
-                <div style={{ textAlign: "left" }}>
-                  <label style={{
-                    display: "block", fontFamily: "'DM Mono', monospace",
-                    fontSize: 11, color: "#999", letterSpacing: "0.08em",
-                    textTransform: "uppercase", marginBottom: 7, textAlign: "left",
-                  }}>
+                <div className="form-group">
+                  <label className="form-label">
                     Message
                   </label>
                   <textarea
                     name="message" value={form.message} onChange={handleChange}
                     placeholder="Tell me about your project…" required rows={5}
-                    style={{ ...inputBase, resize: "vertical", minHeight: 130 }}
-                    onFocus={onFocus} onBlur={onBlur}
+                    className="form-input" style={{ resize: "vertical", minHeight: 130 }}
                   />
                 </div>
 
@@ -616,15 +557,11 @@ function ContactSection({ email, github, upwork }) {
                   type="submit" disabled={status === "sending"}
                   whileHover={status !== "sending" ? { scale: 1.03 } : {}}
                   whileTap={status !== "sending"   ? { scale: 0.97 } : {}}
+                  className="btn btn-primary"
                   style={{
-                    background: status === "sending" ? "#555" : "#1a1a1a",
-                    color: "#F9F8F5", border: "none", padding: "14px 28px",
-                    borderRadius: 12, fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: 700, fontSize: 14,
+                    opacity: status === "sending" ? 0.7 : 1,
                     cursor: status === "sending" ? "not-allowed" : "pointer",
-                    display: "flex", alignItems: "center",
-                    justifyContent: "center", gap: 8,
-                    letterSpacing: "0.01em", transition: "background 0.2s",
+                    width: "100%",
                   }}
                 >
                   {status === "sending" ? (
@@ -666,13 +603,13 @@ function ContactSection({ email, github, upwork }) {
               <span style={{
                 fontSize: 18, width: 40, height: 40, borderRadius: 10,
                 background: "#F4F4F4", display: "flex", alignItems: "center",
-                justifyContent: "center", flexShrink: 0, color: item.color || "#1a1a1a",
+                justifyContent: "center", flexShrink: 0, color: item.color || "var(--text-primary)",
               }}>
                 {item.icon}
               </span>
               <div style={{ textAlign: "left" }}>
                 <div style={{
-                  fontFamily: "'DM Mono', monospace", fontSize: 10, color: "#aaa",
+                  fontFamily: "'DM Mono', monospace", fontSize: 10, color: "var(--text-tertiary)",
                   letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 2,
                   textAlign: "left",
                 }}>
@@ -680,7 +617,7 @@ function ContactSection({ email, github, upwork }) {
                 </div>
                 <div style={{
                   fontFamily: "'DM Sans', sans-serif", fontSize: 13,
-                  fontWeight: 600, color: item.color || "#1a1a1a",
+                  fontWeight: 600, color: item.color || "var(--text-primary)",
                   textAlign: "left",
                 }}>
                   {item.value}
@@ -691,7 +628,7 @@ function ContactSection({ email, github, upwork }) {
 
           {/* Response time badge */}
           <div style={{
-            background: "#F9F8F5", border: "1.5px solid #e8e8e8",
+            background: "var(--bg-primary)", border: "1.5px solid #e8e8e8",
             borderRadius: 14, padding: "14px 18px",
             display: "flex", alignItems: "center", gap: 10,
           }}>
@@ -704,7 +641,6 @@ function ContactSection({ email, github, upwork }) {
             </span>
           </div>
         </motion.div>
-        </div>
       </div>
     </section>
   );
@@ -717,111 +653,54 @@ export default function Portfolio() {
   const { name, title, tagline, email, github, upwork, skills, projects } = PORTFOLIO_DATA;
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F9F8F5", fontFamily: "'DM Sans', sans-serif", width: "100%", overflowX: "hidden" }}>
-      {/* Google Fonts */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
-        * { box-sizing: border-box; }
-        body { margin: 0; overflow-x: hidden; }
-        html { overflow-x: hidden; }
-        ::selection { background: #FFEB3B44; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
-        
-        @media (max-width: 768px) {
-          body { font-size: 14px; }
-        }
-      `}</style>
+    <div className="portfolio-app">
 
       {/* ── HERO ── */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "clamp(48px, 10vw, 96px) clamp(16px, 5vw, 48px) clamp(40px, 8vw, 80px)", width: "100%" }}>
+      <section className="container hero-wrapper">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Available badge */}
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            background: "#1a1a1a", color: "#F9F8F5", padding: "6px 14px",
-            borderRadius: 999, fontSize: 11, fontFamily: "'DM Mono', monospace",
-            letterSpacing: "0.08em", marginBottom: 28,
-          }}>
-            <span style={{
-              width: 7, height: 7, borderRadius: "50%",
-              background: "#4CAF50", display: "inline-block", boxShadow: "0 0 6px #4CAF50",
-            }} />
+          <div className="available-badge">
+            <span className="status-dot" />
             AVAILABLE FOR WORK
           </div>
 
-          <h1 style={{
-            fontFamily: "'Syne', sans-serif", fontSize: "clamp(48px, 8vw, 84px)",
-            fontWeight: 800, color: "#1a1a1a", margin: "0 0 8px",
-            lineHeight: 1.0, letterSpacing: "-0.03em",
-          }}>
+          <h1 className="hero-title">
             {name}
           </h1>
 
-          <h2 style={{
-            fontFamily: "'Syne', sans-serif", fontSize: "clamp(22px, 4vw, 36px)",
-            fontWeight: 700, color: "#888", margin: "0 0 24px", letterSpacing: "-0.02em",
-          }}>
+          <h2 className="hero-role">
             {title}
           </h2>
 
-          <p style={{ 
-            fontSize: "clamp(15px, 3vw, 17px)", 
-            color: "#555", 
-            maxWidth: 500, 
-            lineHeight: 1.7, 
-            margin: "0 0 clamp(32px, 6vw, 40px)" 
-          }}>
+          <p className="hero-description">
             {tagline}
           </p>
 
           {/* CTA buttons */}
-          <div style={{ display: "flex", gap: "clamp(10px, 2vw, 12px)", flexWrap: "wrap" }}>
+          <div className="hero-actions">
             <motion.a
               href={`mailto:${email}`}
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-              style={{
-                background: "#1a1a1a", color: "#F9F8F5", 
-                padding: "clamp(10px, 2vw, 12px) clamp(20px, 4vw, 28px)",
-                borderRadius: "clamp(10px, 2vw, 12px)", 
-                fontWeight: 600, 
-                fontSize: "clamp(13px, 2.5vw, 14px)",
-                textDecoration: "none", letterSpacing: "0.01em",
-              }}
+              className="btn btn-primary"
             >
               ✉ Get in touch
             </motion.a>
             <motion.a
               href={github} target="_blank" rel="noopener noreferrer"
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-              style={{
-                background: "transparent", color: "#1a1a1a", 
-                padding: "clamp(10px, 2vw, 12px) clamp(20px, 4vw, 28px)",
-                borderRadius: "clamp(10px, 2vw, 12px)", 
-                fontWeight: 600, 
-                fontSize: "clamp(13px, 2.5vw, 14px)", 
-                textDecoration: "none",
-                border: "1.5px solid #1a1a1a", letterSpacing: "0.01em",
-              }}
+              className="btn btn-outline"
             >
               ◉ GitHub
             </motion.a>
             <motion.a
               href={upwork} target="_blank" rel="noopener noreferrer"
               whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-              style={{
-                background: "#14a800", color: "#fff", 
-                padding: "clamp(10px, 2vw, 12px) clamp(20px, 4vw, 28px)",
-                borderRadius: "clamp(10px, 2vw, 12px)", 
-                fontWeight: 600, 
-                fontSize: "clamp(13px, 2.5vw, 14px)",
-                textDecoration: "none", letterSpacing: "0.01em",
-              }}
+              className="btn"
+              style={{ background: "#14a800", color: "#fff" }}
             >
               ⬡ Upwork
             </motion.a>
@@ -852,34 +731,24 @@ export default function Portfolio() {
       </section>
 
       {/* ── DIVIDER ── */}
-      <div style={{ maxWidth: 1200, margin: "0 auto clamp(32px, 6vw, 64px)", padding: "0 clamp(16px, 5vw, 48px)", width: "100%" }}>
-        <div style={{ height: 1, background: "linear-gradient(90deg, #1a1a1a, #e0e0e0)" }} />
+      <div style={{ padding: "clamp(32px, 6vw, 64px) 0" }}>
+        <div className="divider" />
       </div>
 
       {/* ── PROJECTS ── */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(16px, 5vw, 48px) clamp(40px, 8vw, 80px)", width: "100%" }}>
+      <section className="container section" style={{ paddingTop: 0 }}>
         <AnimatedSection>
           <motion.div variants={fadeUp} style={{ marginBottom: 48 }}>
-            <p style={{
-              fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#999",
-              letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 8,
-            }}>
+            <p className="section-subtitle">
               Selected Work
             </p>
-            <h2 style={{
-              fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px, 5vw, 52px)",
-              fontWeight: 800, color: "#1a1a1a", margin: 0, letterSpacing: "-0.03em",
-            }}>
+            <h2 className="section-title">
               Projects
             </h2>
           </motion.div>
         </AnimatedSection>
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
-          gap: "clamp(16px, 3vw, 20px)",
-        }}>
+        <div className="projects-grid">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
@@ -887,8 +756,8 @@ export default function Portfolio() {
       </section>
 
       {/* ── DIVIDER ── */}
-      <div style={{ maxWidth: 1200, margin: "0 auto clamp(32px, 6vw, 64px)", padding: "0 clamp(16px, 5vw, 48px)", width: "100%" }}>
-        <div style={{ height: 1, background: "linear-gradient(90deg, #1a1a1a, #e0e0e0)" }} />
+      <div style={{ padding: "clamp(32px, 6vw, 64px) 0" }}>
+        <div className="divider" />
       </div>
 
       {/* ── CONTACT ── */}
