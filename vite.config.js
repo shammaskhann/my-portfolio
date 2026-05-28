@@ -4,5 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/', // Changed for custom domain shammaskhan.online
+  base: '/', 
+  assetsInclude: ['**/*.glb'],
+  build: {
+    outDir: "docs",
+  },
 })
