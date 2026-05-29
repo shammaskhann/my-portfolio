@@ -3,7 +3,8 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import emailjs from "@emailjs/browser";
 import { 
   Github, Mail, ArrowUpRight, MapPin, Newspaper, Home, Wrench, 
-  Sparkles, Smartphone, Stethoscope, Car, ChevronLeft, ChevronRight, Code 
+  Sparkles, Smartphone, Stethoscope, Car, ChevronLeft, ChevronRight, Code,
+  Zap, Users, Trophy, Briefcase, Cpu, Download, ExternalLink
 } from "lucide-react";
 
 import BorderGlow from './components/BorderGlow';
@@ -36,7 +37,12 @@ const PORTFOLIO_DATA = {
   email: "shammaskhann@gmail.com",
   github: "https://github.com/shammaskhann",
   linkedin: "https://linkedin.com/in/shammaskhann",
-  // upwork: "https://www.upwork.com/freelancers/~01d6d922e25ece0d0e",
+  stats: [
+    { label: "Apps Shipped", value: "7+", icon: <Smartphone size={24} />, desc: "Production-ready applications" },
+    { label: "Happy Clients", value: "15+", icon: <Users size={24} />, desc: "Businesses transformed" },
+    { label: "Years in Dev", value: "3+", icon: <Briefcase size={24} />, desc: "Mobile expertise" },
+    { label: "Code Commits", value: "1000+", icon: <Cpu size={24} />, desc: "Quality iterations" }
+  ],
   projects: [
     { id: 1, title: "HammerLoop", type: "Workforce Ecosystem", desc: "A massive construction job-matching platform. Engineered trade-skill filtering, precise geolocation search, and high-frequency push notifications.", stack: ["Flutter", "FCM", "Firebase"], image: hammerloopImg, icon: <Wrench size={24} />, github: "https://github.com/shammaskhann", live: "https://play.google.com/store/apps/details?id=com.hammerloop.app" },
     { id: 2, title: "Aqare", type: "Real Estate Marketplace", desc: "Bilingual property ecosystem for Saudi market. Integrated NAFATH Govt API for verification and custom map-based property clustering.", stack: ["Flutter", "NAFATH API", "Maps"], image: aqareImg, icon: <Home size={24} />, github: "https://github.com/shammaskhann", live: "https://apps.apple.com/sa/app/aqare/id6741023384" },
@@ -103,10 +109,10 @@ export default function Portfolio() {
               <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span><span className="relative inline-flex h-2 w-2 rounded-full bg-accent"></span></span>
               Shammas.Dev_Engine
             </div>
-            <h1 className="text-6xl font-bold tracking-tight md:text-8xl leading-[0.9] mb-6 font-sans">
+            <h1 className="text-6xl font-bold tracking-tight md:text-8xl leading-[0.9] mb-6" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
               <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">{PORTFOLIO_DATA.name}</span>
             </h1>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-8">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-8" style={{ fontFamily: 'var(--font-playfair)' }}>
               <span className="bg-gradient-to-r from-accent via-indigo-400 to-accent bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">{PORTFOLIO_DATA.title}</span>
             </h2>
             <p className="max-w-xl text-lg text-foreground-muted leading-relaxed mb-12">{PORTFOLIO_DATA.tagline}</p>
@@ -117,11 +123,45 @@ export default function Portfolio() {
           </div>
         </motion.section>
 
+        {/* STATS SECTION */}
+        <motion.section className="py-24 border-t border-white/[0.06] relative" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {PORTFOLIO_DATA.stats.map((stat, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <BorderGlow 
+                  className="w-full"
+                  borderRadius={16}
+                  glowRadius={30}
+                  edgeSensitivity={27}
+                  backgroundColor="#120F17"
+                  colors={['#c084fc', '#f472b6', '#38bdf8']}
+                >
+                  <div className="bg-background-elevated/40 p-8 h-full flex flex-col items-center justify-center text-center">
+                    <div className="p-4 rounded-2xl bg-accent/10 border border-accent/20 text-accent mb-6 inline-block">
+                      {stat.icon}
+                    </div>
+                    <div className="text-5xl font-bold text-white mb-2" style={{ fontFamily: 'var(--font-outfit)' }}>{stat.value}</div>
+                    <p className="font-mono text-[10px] tracking-[0.2em] text-foreground-muted uppercase mb-2">{stat.label}</p>
+                    <p className="text-sm text-foreground-subtle">{stat.desc}</p>
+                  </div>
+                </BorderGlow>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
         {/* PROJECT SLIDER */}
         <section className="py-32 border-t border-white/[0.06] relative">
           <div className="mb-16 text-center">
             <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-4">Project Archive</h3>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white">Software Engineering</h2>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white" style={{ fontFamily: 'var(--font-outfit)' }}>Software Engineering</h2>
+            <p className="mt-6 text-lg text-foreground-muted max-w-2xl mx-auto">A curated collection of production-grade applications impacting millions of users worldwide</p>
           </div>
 
           <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 flex justify-between px-2 md:-px-16 pointer-events-none z-30">
@@ -180,11 +220,40 @@ export default function Portfolio() {
           </div>
         </section>
 
+        {/* TECH STACK SHOWCASE */}
+        <section className="py-32 border-t border-white/[0.06]">
+          <div className="mb-16 text-center">
+            <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-4">Arsenal</h3>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white" style={{ fontFamily: 'var(--font-outfit)' }}>Technology Stack</h2>
+            <p className="mt-6 text-lg text-foreground-muted max-w-2xl mx-auto">Handpicked tools and frameworks crafted for performance, scalability, and user delight</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+            {SKILL_ICONS.map((icon, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ y: 10, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: idx * 0.05 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.15, rotate: 5 }}
+                className="group relative"
+              >
+                <div className="relative p-6 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:border-accent/40 cursor-pointer">
+                  <img src={icon} alt={`tech-${idx}`} className="w-12 h-12 mx-auto group-hover:brightness-125 transition-all" />
+                  <div className="absolute inset-0 rounded-2xl bg-accent/5 opacity-0 group-hover:opacity-100 transition-all" />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         {/* CARRIER LOG */}
         <section className="py-32 border-t border-white/[0.06]">
           <div className="mb-16">
             <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-4">Carrier Log</h3>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">Experience Timeline</h2>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: 'var(--font-outfit)' }}>Experience Timeline</h2>
+            <p className="mt-6 text-lg text-foreground-muted">Professional journey building scalable, user-centric mobile applications</p>
           </div>
 
           {/* Wrapper with horizontal touch-scrolling enabled, native scrollbars fully hidden */}
@@ -233,7 +302,8 @@ export default function Portfolio() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <div className="lg:col-span-5">
               <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-6">Contact</h3>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-8">Ready for launch?</h2>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-8" style={{ fontFamily: 'var(--font-outfit)' }}>Let's Build Something Great</h2>
+              <p className="text-foreground-muted mb-8">Got an exciting mobile app idea? Let's collaborate and turn your vision into reality. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
               <div className="space-y-6">
                 <a href={`mailto:${PORTFOLIO_DATA.email}`} className="flex items-center gap-4 text-foreground-muted hover:text-white transition-all group"><div className="h-12 w-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-accent"><Mail size={20} /></div><span className="font-mono text-sm">{PORTFOLIO_DATA.email}</span></a>
                 <a href={PORTFOLIO_DATA.github} target="_blank" className="flex items-center gap-4 text-foreground-muted hover:text-white transition-all group"><div className="h-12 w-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-accent"><Github size={20} /></div><span className="font-mono text-sm">github/shammaskhann</span></a>
