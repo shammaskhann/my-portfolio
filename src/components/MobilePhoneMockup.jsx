@@ -96,7 +96,7 @@ export default function MobilePhoneMockup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-transparent p-4">
+    <div className="flex items-center justify-center w-full h-full">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
         

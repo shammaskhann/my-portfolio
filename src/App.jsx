@@ -102,7 +102,7 @@ export default function Portfolio() {
         
         {/* HERO SECTION */}
         <motion.section style={{ opacity: heroOpacity }} className="grid grid-cols-1 lg:grid-cols-2 min-h-screen items-center py-20 gap-12">
-          <div className="hidden lg:block relative h-[600px] w-full">
+          <div className="hidden lg:flex relative h-[600px] w-full items-center justify-center">
             <MobilePhoneMockup />
           </div>
           <div className="flex flex-col justify-center">
