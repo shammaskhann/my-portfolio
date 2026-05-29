@@ -3,7 +3,8 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import emailjs from "@emailjs/browser";
 import { 
   Github, Mail, ArrowUpRight, MapPin, Newspaper, Home, Wrench, 
-  Sparkles, Smartphone, Stethoscope, Car, ChevronLeft, ChevronRight, Code 
+  Sparkles, Smartphone, Stethoscope, Car, ChevronLeft, ChevronRight, Code,
+  Zap, Smartphone as Mobile, Trophy, Users, Briefcase, Cpu
 } from "lucide-react";
 
 import BorderGlow from './components/BorderGlow';
@@ -35,20 +36,25 @@ const PORTFOLIO_DATA = {
   tagline: "Crafting polished mobile experiences — from concept to store.",
   email: "shammaskhann@gmail.com",
   github: "https://github.com/shammaskhann",
-  upwork: "https://www.upwork.com/freelancers/~01d6d922e25ece0d0e",
-  projects: [
+  linkedin: "https://linkedin.com/in/shammaskhann",
+  stats: [
+    { label: "Apps Shipped", value: "7+", icon: <Smartphone size={24} /> },
+    { label: "Happy Clients", value: "15+", icon: <Users size={24} /> },
+    { label: "Years in Dev", value: "3+", icon: <Briefcase size={24} /> },
+    { label: "Code Commits", value: "1000+", icon: <Cpu size={24} /> }
+  ],
     { id: 1, title: "HammerLoop", type: "Workforce Ecosystem", desc: "A massive construction job-matching platform. Engineered trade-skill filtering, precise geolocation search, and high-frequency push notifications.", stack: ["Flutter", "FCM", "Firebase"], image: hammerloopImg, icon: <Wrench size={24} />, github: "https://github.com/shammaskhann", live: "https://play.google.com/store/apps/details?id=com.hammerloop.app" },
     { id: 2, title: "Aqare", type: "Real Estate Marketplace", desc: "Bilingual property ecosystem for Saudi market. Integrated NAFATH Govt API for verification and custom map-based property clustering.", stack: ["Flutter", "NAFATH API", "Maps"], image: aqareImg, icon: <Home size={24} />, github: "https://github.com/shammaskhann", live: "https://apps.apple.com/sa/app/aqare/id6741023384" },
     { id: 3, title: "Map Off", type: "Hyperlocal Marketing", desc: "Store-offer exploration engine. Features custom map markers, role-based access control, and deep-linking to specific shop deals.", stack: ["Flutter", "Maps SDK"], image: mapoffImg, icon: <MapPin size={24} />, github: "https://github.com/shammaskhann", live: "https://play.google.com/store/apps/details?id=net.mapoff.mapoffapp" },
-    { id: 4, title: "Car Fix Up", type: "Service Logistics", desc: "Connecting car owners with emergency help. Features real-time tow-truck tracking and ZegoCloud powered emergency video consultations.", stack: ["Flutter", "ZegoCloud"], image: carfixupImg, icon: <Car size={24} />, github: "https://github.com/shammaskhann/car_fix_up_fyp", live: "https://github.com/shammaskhann/car_fix_up_fyp" },
     { id: 5, title: "Daily Sindhyar", type: "Media & News", desc: "Native performance wrapper for Sindhi news. Implemented full Google AdMob lifecycle and optimized WebView performance.", stack: ["WebView", "AdMob"], image: dailysindhyarImg, icon: <Newspaper size={24} />, github: "https://github.com/shammaskhann", live: "https://play.google.com/store/apps/details?id=com.dailysindhyar.app" },
     { id: 6, title: "Smileline", type: "Clinic Management", desc: "Dental healthcare platform. Automated patient scheduling and medical history tracking.", stack: ["Firebase", "WhatsApp API"], image: smilelineImg, icon: <Stethoscope size={24} />, github: "https://github.com/shammaskhann", live: "https://github.com/shammaskhann" },
-    { id: 7, title: "AtUrHome", type: "UI Revamp", desc: "Complete visual redesign of a logistics platform. standarized design system components and interactive map routing.", stack: ["Flutter", "UI/UX"], image: atUrHomeImg, icon: <Sparkles size={24} />, github: "https://github.com/shammaskhann", live: "https://docs.google.com/document/d/1vpmzd8QccGyLyXEzMy2RCDO_oRWsapRXorcD1AdAEiM/edit" }
+    { id: 7, title: "AtUrHome", type: "UI Revamp", desc: "Complete visual redesign of a logistics platform. standarized design system components and interactive map routing.", stack: ["Flutter", "UI/UX"], image: atUrHomeImg, icon: <Sparkles size={24} />, github: "https://github.com/shammaskhann", live: "https://docs.google.com/document/d/1vpmzd8QccGyLyXEzMy2RCDO_oRWsapRXorcD1AdAEiM/edit" },
+    { id: 4, title: "Car Fix Up", type: "Service Logistics", desc: "Connecting car owners with emergency help. Features real-time tow-truck tracking and ZegoCloud powered emergency video consultations.", stack: ["Flutter", "ZegoCloud"], image: carfixupImg, icon: <Car size={24} />, github: "https://github.com/shammaskhann/car_fix_up_fyp", live: "https://github.com/shammaskhann/car_fix_up_fyp" }
   ],
   experience: [
     { title: "Mobile App Developer", company: "iSky Information Technology", period: "Nov 2024 - Mar 2025", desc: "Developed bilingual Flutter apps with Google Maps integration and GetX management." },
     { title: "IT Intern", company: "Archroma Pakistan Limited", period: "Aug 2025 - Sept 2025", desc: "Assisted in FBR e-Invoicing integration and SAP Crystal Reports generation." },
-    { title: "Freelance Flutter Dev", company: "Upwork Global", period: "Active", desc: "Building 60fps mobile experiences for global clients as a Top-Rated developer." }
+    { title: "Freelance Flutter Dev", company: "Freelance", period: "Active", desc: "Building 60fps mobile experiences for global clients as a Top-Rated developer." }
   ]
 };
 
@@ -103,17 +109,48 @@ export default function Portfolio() {
               Shammas.Dev_Engine
             </div>
             <h1 className="text-6xl font-bold tracking-tight md:text-8xl leading-[0.9] mb-6 font-sans">
-              <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">{PORTFOLIO_DATA.name}</span>
+              <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent" style={{ fontFamily: 'var(--font-space-grotesk)' }}>{PORTFOLIO_DATA.name}</span>
             </h1>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-8">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-8" style={{ fontFamily: 'var(--font-playfair)' }}>
               <span className="bg-gradient-to-r from-accent via-indigo-400 to-accent bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">{PORTFOLIO_DATA.title}</span>
             </h2>
             <p className="max-w-xl text-lg text-foreground-muted leading-relaxed mb-12">{PORTFOLIO_DATA.tagline}</p>
             <div className="flex flex-wrap gap-4">
               <button onClick={() => window.open(`mailto:${PORTFOLIO_DATA.email}`)} className="btn-primary"><Mail size={18} /> Contact</button>
-              <button onClick={() => window.open(PORTFOLIO_DATA.upwork, "_blank")} className="btn-secondary !text-[#14a800] !border-[#14a800]/30"><Smartphone size={18} /> Upwork</button>
               <button onClick={() => window.open(PORTFOLIO_DATA.github, "_blank")} className="btn-secondary"><Github size={18} /> GitHub</button>
             </div>
+          </div>
+        </motion.section>
+
+        {/* STATS SECTION */}
+        <motion.section className="py-24 border-t border-white/[0.06] relative" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {PORTFOLIO_DATA.stats.map((stat, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <BorderGlow 
+                  className="w-full"
+                  borderRadius={16}
+                  glowRadius={30}
+                  edgeSensitivity={27}
+                  backgroundColor="#120F17"
+                  colors={['#c084fc', '#f472b6', '#38bdf8']}
+                >
+                  <div className="bg-background-elevated/40 p-8 h-full flex flex-col items-center justify-center text-center">
+                    <div className="p-4 rounded-2xl bg-accent/10 border border-accent/20 text-accent mb-6 inline-block">
+                      {stat.icon}
+                    </div>
+                    <div className="text-5xl font-bold text-white mb-2" style={{ fontFamily: 'var(--font-outfit)' }}>{stat.value}</div>
+                    <p className="font-mono text-[10px] tracking-[0.2em] text-foreground-muted uppercase">{stat.label}</p>
+                  </div>
+                </BorderGlow>
+              </motion.div>
+            ))}
           </div>
         </motion.section>
 
@@ -121,7 +158,8 @@ export default function Portfolio() {
         <section className="py-32 border-t border-white/[0.06] relative">
           <div className="mb-16 text-center">
             <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-4">Project Archive</h3>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white">Software Engineering</h2>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white" style={{ fontFamily: 'var(--font-outfit)' }}>Software Engineering</h2>
+            <p className="mt-6 text-lg text-foreground-muted max-w-2xl mx-auto">A curated collection of production-grade applications impacting millions of users worldwide</p>
           </div>
 
           <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 flex justify-between px-2 md:-px-16 pointer-events-none z-30">
@@ -180,11 +218,40 @@ export default function Portfolio() {
           </div>
         </section>
 
+        {/* TECH STACK SHOWCASE */}
+        <section className="py-32 border-t border-white/[0.06]">
+          <div className="mb-16 text-center">
+            <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-4">Arsenal</h3>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white" style={{ fontFamily: 'var(--font-outfit)' }}>Technology Stack</h2>
+            <p className="mt-6 text-lg text-foreground-muted max-w-2xl mx-auto">Handpicked tools and frameworks crafted for performance, scalability, and user delight</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+            {SKILL_ICONS.map((icon, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ y: 10, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: idx * 0.05 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.15, rotate: 5 }}
+                className="group relative"
+              >
+                <div className="relative p-6 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:border-accent/40 cursor-pointer">
+                  <img src={icon} alt={`tech-${idx}`} className="w-12 h-12 mx-auto group-hover:brightness-125 transition-all" />
+                  <div className="absolute inset-0 rounded-2xl bg-accent/5 opacity-0 group-hover:opacity-100 transition-all" />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         {/* CARRIER LOG */}
         <section className="py-32 border-t border-white/[0.06]">
           <div className="mb-16">
             <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-4">Carrier Log</h3>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">Experience Timeline</h2>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: 'var(--font-outfit)' }}>Experience Timeline</h2>
+            <p className="mt-6 text-lg text-foreground-muted">Professional journey building scalable, user-centric mobile applications</p>
           </div>
 
           {/* Wrapper with horizontal touch-scrolling enabled, native scrollbars fully hidden */}
@@ -209,12 +276,6 @@ export default function Portfolio() {
                       <p className="text-foreground-muted text-sm mb-6 font-medium">{exp.title}</p>
                       <p className="text-sm text-foreground-subtle leading-relaxed mb-8">{exp.desc}</p>
                     </div>
-                    
-                    {exp.company === "Upwork Global" && (
-                      <button onClick={() => window.open(PORTFOLIO_DATA.upwork, "_blank")} className="btn-secondary w-fit !text-[#14a800] !border-[#14a800]/30 text-[10px] uppercase tracking-widest mt-auto">
-                         Verified Expert
-                      </button>
-                    )}
                   </div>
                 </BorderGlow>
               </div>
