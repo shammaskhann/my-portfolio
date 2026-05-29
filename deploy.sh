@@ -42,12 +42,17 @@ else
     git commit -m "$COMMIT_MSG"
 fi
 
-# Build the project
 echo ""
 echo "📦 Building project..."
 npm run build
 if [ $? -ne 0 ]; then
-    echo "❌ Build failed!"
+    echo "❌ Build failed! Aborting deploy."
+    exit 1
+fi
+
+# Ensure dist/ exists and is not empty
+if [ ! -d dist ] || [ -z "$(ls -A dist 2>/dev/null)" ]; then
+    echo "❌ Build output (dist/) missing or empty! Aborting deploy."
     exit 1
 fi
 
@@ -65,6 +70,11 @@ fi
 # Create temporary directory for dist
 TEMP_DIR=$(mktemp -d)
 cp -r dist/* $TEMP_DIR/
+if [ $? -ne 0 ]; then
+    echo "❌ Failed to copy build output! Aborting deploy."
+    rm -rf $TEMP_DIR
+    exit 1
+fi
 
 # Switch to deploy branch
 echo ""
