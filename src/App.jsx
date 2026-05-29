@@ -9,6 +9,7 @@ import {
 
 import BorderGlow from './components/BorderGlow';
 import OrbitImages from './components/OrbitImages';
+import MobilePhoneMockup from './components/MobilePhoneMockup';
 
 // ── ASSETS ────────────────────────────────────────────────
 import aqareImg from "./assets/aqare.jpeg";
@@ -39,8 +40,8 @@ const PORTFOLIO_DATA = {
   linkedin: "https://linkedin.com/in/shammaskhann",
   stats: [
     { label: "Apps Shipped", value: "7+", icon: <Smartphone size={24} />, desc: "Production-ready applications" },
-    { label: "Happy Clients", value: "15+", icon: <Users size={24} />, desc: "Businesses transformed" },
-    { label: "Years in Dev", value: "3+", icon: <Briefcase size={24} />, desc: "Mobile expertise" },
+    { label: "Happy Clients", value: "10+", icon: <Users size={24} />, desc: "Businesses transformed" },
+    { label: "Years in Dev", value: "1.5+", icon: <Briefcase size={24} />, desc: "Mobile expertise" },
     { label: "Code Commits", value: "1000+", icon: <Cpu size={24} />, desc: "Quality iterations" }
   ],
   projects: [
@@ -102,7 +103,7 @@ export default function Portfolio() {
         {/* HERO SECTION */}
         <motion.section style={{ opacity: heroOpacity }} className="grid grid-cols-1 lg:grid-cols-2 min-h-screen items-center py-20 gap-12">
           <div className="hidden lg:block relative h-[600px] w-full">
-            <OrbitImages images={SKILL_ICONS} radiusX={220} radiusY={220} duration={25} itemSize={70} />
+            <MobilePhoneMockup />
           </div>
           <div className="flex flex-col justify-center">
             <div className="inline-flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-mono tracking-[0.2em] text-accent uppercase mb-8">
