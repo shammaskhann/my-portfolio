@@ -50,9 +50,10 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Ensure dist/ exists and is not empty
-if [ ! -d dist ] || [ -z "$(ls -A dist 2>/dev/null)" ]; then
-    echo "❌ Build output (dist/) missing or empty! Aborting deploy."
+
+# Ensure docs/ exists and is not empty
+if [ ! -d docs ] || [ -z "$(ls -A docs 2>/dev/null)" ]; then
+    echo "❌ Build output (docs/) missing or empty! Aborting deploy."
     exit 1
 fi
 
@@ -67,9 +68,9 @@ else
     git checkout $CURRENT_BRANCH
 fi
 
-# Create temporary directory for dist
+# Create temporary directory for docs
 TEMP_DIR=$(mktemp -d)
-cp -r dist/* $TEMP_DIR/
+cp -r docs/* $TEMP_DIR/
 if [ $? -ne 0 ]; then
     echo "❌ Failed to copy build output! Aborting deploy."
     rm -rf $TEMP_DIR
