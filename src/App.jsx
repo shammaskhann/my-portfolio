@@ -1,17 +1,9 @@
-import React, { useState, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import './App.css'
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import { 
-  Github, Mail, ArrowUpRight, MapPin, Newspaper, Home, Wrench, 
-  Sparkles, Smartphone, Stethoscope, Car, ChevronLeft, ChevronRight, Code,
-  Zap, Users, Trophy, Briefcase, Cpu, Download, ExternalLink
-} from "lucide-react";
 
-import BorderGlow from './components/BorderGlow';
-import OrbitImages from './components/OrbitImages';
-import MobilePhoneMockup from './components/MobilePhoneMockup';
-
-// ── ASSETS ────────────────────────────────────────────────
+// Import project images
 import aqareImg from "./assets/aqare.jpeg";
 import mapoffImg from "./assets/mapoff.jpeg";
 import carfixupImg from "./assets/carfixup.jpeg";
@@ -19,313 +11,900 @@ import smilelineImg from "./assets/smileline.jpeg";
 import hammerloopImg from "./assets/Hammerloop.png";
 import dailysindhyarImg from "./assets/dailysindyarcvr.jpg";
 import atUrHomeImg from "./assets/atUrHomecvr.jpg";
+import sondosImg from "./assets/sonddos.png";
+import washappImg from "./assets/washapp.png";
 
-const SKILL_ICONS = [
-  "https://cdn.simpleicons.org/flutter/5E6AD2",
-  "https://cdn.simpleicons.org/firebase/FFCA28",
-  "https://cdn.simpleicons.org/dart/0175C2",
-  "https://cdn.simpleicons.org/android/3DDC84",
-  "https://cdn.simpleicons.org/ios/ffffff",
-  "https://cdn.simpleicons.org/googlecloud/4285F4",
-  "https://cdn.simpleicons.org/git/F05032",
-  "https://cdn.simpleicons.org/getx/ffffff"
-];
-
+// ─────────────────────────────────────────────
+// ✦  SINGLE SOURCE OF TRUTH — ALL DATA HERE  ✦
+// ─────────────────────────────────────────────
 const PORTFOLIO_DATA = {
   name: "Shammas Khan",
   title: "Flutter App Developer",
   tagline: "Crafting polished mobile experiences — from concept to store.",
   email: "shammaskhann@gmail.com",
   github: "https://github.com/shammaskhann",
-  linkedin: "https://linkedin.com/in/shammaskhann",
-  stats: [
-    { label: "Apps Shipped", value: "7+", icon: <Smartphone size={24} />, desc: "Production-ready applications" },
-    { label: "Happy Clients", value: "10+", icon: <Users size={24} />, desc: "Businesses transformed" },
-    { label: "Years in Dev", value: "1.5+", icon: <Briefcase size={24} />, desc: "Mobile expertise" },
-    { label: "Code Commits", value: "1000+", icon: <Cpu size={24} />, desc: "Quality iterations" }
+
+  skills: [
+    "Flutter", "Firebase", "API Integrations", "GetX", "Bloc",
+    "Clean Architecture", "Google Maps SDK", "AdMob", "ZegoCloud",
+    "FCM - Notifications", "NAFATH API", "WebView"
   ],
+
   projects: [
-    { id: 1, title: "HammerLoop", type: "Workforce Ecosystem", desc: "A massive construction job-matching platform. Engineered trade-skill filtering, precise geolocation search, and high-frequency push notifications.", stack: ["Flutter", "FCM", "Firebase"], image: hammerloopImg, icon: <Wrench size={24} />, github: "https://github.com/shammaskhann", live: "https://play.google.com/store/apps/details?id=com.hammerloop.app" },
-    { id: 2, title: "Aqare", type: "Real Estate Marketplace", desc: "Bilingual property ecosystem for Saudi market. Integrated NAFATH Govt API for verification and custom map-based property clustering.", stack: ["Flutter", "NAFATH API", "Maps"], image: aqareImg, icon: <Home size={24} />, github: "https://github.com/shammaskhann", live: "https://apps.apple.com/sa/app/aqare/id6741023384" },
-    { id: 3, title: "Map Off", type: "Hyperlocal Marketing", desc: "Store-offer exploration engine. Features custom map markers, role-based access control, and deep-linking to specific shop deals.", stack: ["Flutter", "Maps SDK"], image: mapoffImg, icon: <MapPin size={24} />, github: "https://github.com/shammaskhann", live: "https://play.google.com/store/apps/details?id=net.mapoff.mapoffapp" },
-    { id: 5, title: "Daily Sindhyar", type: "Media & News", desc: "Native performance wrapper for Sindhi news. Implemented full Google AdMob lifecycle and optimized WebView performance.", stack: ["WebView", "AdMob"], image: dailysindhyarImg, icon: <Newspaper size={24} />, github: "https://github.com/shammaskhann", live: "https://play.google.com/store/apps/details?id=com.dailysindhyar.app" },
-    { id: 6, title: "Smileline", type: "Clinic Management", desc: "Dental healthcare platform. Automated patient scheduling and medical history tracking.", stack: ["Firebase", "WhatsApp API"], image: smilelineImg, icon: <Stethoscope size={24} />, github: "https://github.com/shammaskhann", live: "https://github.com/shammaskhann" },
-    { id: 7, title: "AtUrHome", type: "UI Revamp", desc: "Complete visual redesign of a logistics platform. standarized design system components and interactive map routing.", stack: ["Flutter", "UI/UX"], image: atUrHomeImg, icon: <Sparkles size={24} />, github: "https://github.com/shammaskhann", live: "https://docs.google.com/document/d/1vpmzd8QccGyLyXEzMy2RCDO_oRWsapRXorcD1AdAEiM/edit" },
-    { id: 4, title: "Car Fix Up", type: "Service Logistics", desc: "Connecting car owners with emergency help. Features real-time tow-truck tracking and ZegoCloud powered emergency video consultations.", stack: ["Flutter", "ZegoCloud"], image: carfixupImg, icon: <Car size={24} />, github: "https://github.com/shammaskhann/car_fix_up_fyp", live: "https://github.com/shammaskhann/car_fix_up_fyp" }
+    {
+      id: 1,
+      title: "HammerLoop",
+      category: "Workforce Platform",
+      description:
+        "Construction job-matching platform with dual worker/employer roles, trade-skill filtering, geolocation-based search, and real-time push notifications.",
+      stack: ["Flutter", "API Integrations", "OpenStreetMap", "Firebase", "FCM"],
+      coverUrl: hammerloopImg,
+      links: [
+        { label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.hammerloop.app&pcampaignid=web_share", icon: "▶" },
+        { label: "App Store", url: "https://apps.apple.com/ng/app/hammerloop/id6756441384", icon: "◆" },
+      ],
+      accent: "#FF4500", emoji: "⚒️",
+    },
+    {
+      id: 2,
+      title: "Aqare",
+      category: "Real Estate",
+      description:
+        "Bilingual property marketplace with map-based listings, auction modules, and Saudi Govt NAFATH digital identity verification.",
+      stack: ["Flutter", "Google Maps SDK", "NAFATH API", "API Integrations"],
+      coverUrl: aqareImg,
+      links: [
+        { label: "Play Store", url: "https://play.google.com/store/apps/details?id=net.aqare.aqareapp&pcampaignid=web_share&pli=1", icon: "▶" },
+        { label: "App Store", url: "https://apps.apple.com/sa/app/aqare/id6741023384", icon: "◆" },
+      ],
+      accent: "#FF4500", emoji: "🏠",
+    },
+    {
+      id: 3,
+      title: "Map Off",
+      category: "Location & Offers",
+      description:
+        "Bilingual store-offer explorer using Google Maps with custom markers, deep linking, and role-based access for guests, customers, and shop owners.",
+      stack: ["Flutter", "Google Maps SDK", "API Integrations"],
+      coverUrl: mapoffImg,
+      links: [
+        { label: "Play Store", url: "https://play.google.com/store/apps/details?id=net.mapoff.mapoffapp", icon: "▶" },
+      ],
+      accent: "#FF4500", emoji: "📍",
+    },
+    {
+      id: 4,
+      title: "Daily Sindhyar",
+      category: "News App",
+      description:
+        "Sindhi-language news app wrapping dailysindhyar.com in a native WebView shell with Complete Admob Setup— published successfully on the Play Store.",
+      stack: ["Flutter", "WebView", "AdMob"],
+      coverUrl: dailysindhyarImg,
+      links: [
+        { label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.dailysindhyar.app&hl=en", icon: "▶" },
+      ],
+      accent: "#FF4500", emoji: "📰",
+    },
+    {
+      id: 5,
+      title: "Car Fix Up",
+      category: "Auto Services",
+      description:
+        "Dual-role platform connecting car owners and mechanics — live tow-truck tracking, video call emergencies via ZegoCloud, repair estimates, and booking.",
+      stack: ["Flutter", "Firebase", "ZegoCloud SDK", "Google Maps SDK"],
+      coverUrl: carfixupImg,
+      links: [
+        { label: "Screenshots", url: "https://github.com/shammaskhann/car_fix_up_fyp", icon: "◉" },
+      ],
+      accent: "#FF4500", emoji: "🔧",
+    },
+    {
+      id: 6,
+      title: "Smileline",
+      category: "Clinic Management",
+      description:
+        "Full-featured dental clinic app — appointments, medical history, invoicing, prescriptions, and automated WhatsApp reminders via Firebase Cloud Functions.",
+      stack: ["Flutter", "Firebase", "WhatsApp Business API", "FCM"],
+      coverUrl: smilelineImg,
+      links: [
+        { label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.smileline.patient", icon: "▶" },
+      ],
+      accent: "#FF4500", emoji: "🦷",
+    },
+    {
+      id: 7,
+      title: "Sonddos",
+      category: "Recruitment & Visa",
+      description:
+        "Dedicated platform for Saudi families to manage and hire domestic help (maids, nannies, workers). Allows recruitment, visa processing, contract management, and sponsorship transfers.",
+      stack: ["Flutter", "API Integrations", "Firebase"],
+      coverUrl: sondosImg,
+      links: [
+        { label: "Play Store", url: "https://play.google.com/store/apps/details?id=com.sonddossa.sonddosapp", icon: "▶" },
+      ],
+      accent: "#FF4500", emoji: "👳‍♂️",
+    },
+    {
+      id: 8,
+      title: "Washapp",
+      category: "On‑Demand Services",
+      description:
+        "End‑to‑end laundry pickup and delivery platform operating in the Philippines – customer app with real‑time tracking and payments.",
+      stack: ["Flutter", "Google Maps", "Firebase", "Payment Gateway"],
+      coverUrl: washappImg,
+      links: [
+        { label: "App Store", url: "https://apps.apple.com/ph/app/customer-washapp/id6478976728", icon: "◆" },
+      ],
+      accent: "#FF4500", emoji: "🧺",
+    },
+    {
+      id: 9,
+      title: "AtUrHome",
+      category: "UI Revamp",
+      description:
+        "Complete UI overhaul of a logistics app — animated navigation, illustrated error states, wallet graph, and theme standardization across all screens.",
+      stack: ["Flutter", "Map Routing", "UI/UX"],
+      coverUrl: atUrHomeImg,
+      links: [
+        { label: "Case Study", url: "https://docs.google.com/document/d/1vpmzd8QccGyLyXEzMy2RCDO_oRWsapRXorcD1AdAEiM/edit?tab=t.0", icon: "◉" },
+      ],
+      accent: "#FF4500", emoji: "✨",
+    },
   ],
+
   experience: [
-    { title: "Mobile App Developer", company: "iSky Information Technology", period: "Nov 2024 - Mar 2025", desc: "Developed bilingual Flutter apps with Google Maps integration and GetX management." },
-    { title: "IT Intern", company: "Archroma Pakistan Limited", period: "Aug 2025 - Sept 2025", desc: "Assisted in FBR e-Invoicing integration and SAP Crystal Reports generation." },
-    { title: "Freelance Flutter Dev", company: "Freelance", period: "Active", desc: "Building 60fps mobile experiences for global clients as a Top-Rated developer." }
-  ]
+    {
+      title: "Mobile App Developer",
+      company: "iSky Information Technology",
+      description:
+        "Developed bilingual (Arabic/English) Flutter apps with Google Maps integration and GetX state management.\nOptimized app performance and fixed memory leaks using GetX.\nCreated custom UI components following Middle Eastern design standards.\nApps worked on: Aqare, Map Off, Sounds, Qhub (Smileline, Washapp).",
+      period: "Nov 2024 - Mar 2025",
+      links: {
+        "offer letter": "https://drive.google.com/file/d/1UL37WOkYHzBfYP9iKSV9IX90oCCR9LeK/view?usp=sharing",
+        "exp letter": "https://drive.google.com/file/d/1apWgMwTHIRp6nAmMkhtbSnHDSVgKiBpb/view?usp=sharing"
+      }
+    },
+    {
+      title: "Outsourced Freelance Flutter Developer",
+      company: "Esol Information Technology (subsidiary of iSky)",
+      description:
+        "Collaborated with Esol on flagship projects including Aqare, Map Off, and Sounds.\nPartnered with Qhub to deliver Smileline (dental clinic management) and Washapp (laundry platform in the Philippines).\nBuilt and maintained cross‑platform applications from concept to store.",
+      period: "Sep 2024 - Feb 2026",
+      links: {}
+    },
+    {
+      title: "Information Technology (Intern)",
+      company: "Archroma Pakistan Limited",
+      description:
+        "Assisted in integrating FBR e‑Invoicing functionality using PRAL‑provided APIs within a .NET C# environment.\nIntegrated SAP Crystal Reports into a C# application for e‑invoice generation with FBR QR code support.",
+      period: "Aug 2025 - Sept 2025",
+      links: {
+        "offer letter": "https://drive.google.com/file/d/1MvjNEOIsmHDsYwrmjMC8sV1S6ayIy5Q8/view?usp=sharing",
+        "internship certificate": "https://drive.google.com/file/d/1H70ggOO8VRVYnc-vbSIcCys8KcQbJvBa/view?usp=sharing",
+      }
+    },
+  ],
+
+  education: [
+    {
+      title: "BS in Computer Science",
+      institution: "Bahria University Karachi",
+      description:
+        "Pursuing a Bachelor's degree in Computer Science with a focus on software development, algorithms, and data structures. Engaged in various projects and coursework to enhance programming skills and problem-solving abilities.",
+      period: "Oct 2022 - May 2026",
+      links: {
+        // "transcript": "https://drive.google.com/file/d/1ak3QModyEQ-dymdkKwYa8dMkxbYcwfjx/view?usp=sharing",
+      }
+    },
+  ],
 };
 
-export default function Portfolio() {
-  const { scrollYProgress } = useScroll();
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const [experienceIdx, setExperienceIdx] = useState(0);
+// ─────────────────────────────────────────────
+// EMAILJS CONFIG — reads from .env
+// ─────────────────────────────────────────────
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-  const scrollRef = useRef(null);
-  const formRef = useRef();
-  const [status, setStatus] = useState("idle");
+// ─────────────────────────────────────────────
+// ANIMATION VARIANTS
+// ─────────────────────────────────────────────
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: (i = 0) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
 
-  const paginate = (newDirection) => {
-    setDirection(newDirection);
-    setActiveIdx((prev) => (prev + newDirection + PORTFOLIO_DATA.projects.length) % PORTFOLIO_DATA.projects.length);
-  };
+// ─────────────────────────────────────────────
+// SHARED COMPONENTS
+// ─────────────────────────────────────────────
+function AnimatedSection({ children }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <motion.div ref={ref} variants={stagger} initial="hidden" animate={inView ? "visible" : "hidden"}>
+      {children}
+    </motion.div>
+  );
+}
 
-  const handleTimelineScroll = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, clientWidth } = scrollRef.current;
-    const currentIdx = Math.round(scrollLeft / clientWidth);
-    setExperienceIdx(currentIdx);
-  };
+function Tag({ label, accent }) {
+  return (
+    <span style={{
+      background: accent + "12",
+      color: accent,
+      border: `1px solid ${accent}25`,
+      borderRadius: 8,
+      padding: "3px 10px",
+      fontSize: "clamp(10px, 2vw, 11px)",
+      fontFamily: "var(--font-mono)",
+      letterSpacing: "0.04em",
+      fontWeight: 500,
+      whiteSpace: "nowrap",
+    }}>
+      {label}
+    </span>
+  );
+}
 
-  const project = PORTFOLIO_DATA.projects[activeIdx];
+function LinkButton({ link, accent }) {
+  return (
+    <motion.a
+      href={link.url} target="_blank" rel="noopener noreferrer"
+      whileHover={{ scale: 1.05, y: -1 }} whileTap={{ scale: 0.96 }}
+      style={{
+        display: "inline-flex", alignItems: "center", gap: 6,
+        padding: "8px 16px",
+        borderRadius: 12,
+        fontSize: "clamp(11px, 2.5vw, 12px)",
+        fontWeight: 600,
+        fontFamily: "var(--font-body)",
+        background: accent,
+        color: "#fff",
+        border: "none",
+        whiteSpace: "nowrap",
+        textDecoration: "none",
+        boxShadow: `0 0 14px ${accent}50, var(--neumorph-raised)`,
+        transition: "box-shadow 0.3s ease",
+      }}
+    >
+      <span style={{ fontSize: "clamp(9px, 2vw, 10px)" }}>{link.icon}</span>
+      <span>{link.label}</span>
+    </motion.a>
+  );
+}
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setStatus("sending");
-    emailjs.sendForm(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, formRef.current, import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
-      .then(() => { setStatus("success"); formRef.current.reset(); }).catch(() => setStatus("error"));
-  };
+// ─────────────────────────────────────────────
+// PROJECT CARD
+// ─────────────────────────────────────────────
+function ProjectCard({ project, index }) {
+  const [hovered, setHovered] = useState(false);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
-      <div className="noise-overlay" />
-      <div className="grid-overlay" />
-      
-      <main className="relative z-10 mx-auto max-w-7xl px-6">
-        
-        {/* HERO SECTION */}
-        <motion.section style={{ opacity: heroOpacity }} className="grid grid-cols-1 lg:grid-cols-2 min-h-screen items-center py-20 gap-12">
-          <div className="hidden lg:flex relative h-[600px] w-full items-center justify-center">
-            <MobilePhoneMockup />
-          </div>
-          <div className="flex flex-col justify-center">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-mono tracking-[0.2em] text-accent uppercase mb-8">
-              <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span><span className="relative inline-flex h-2 w-2 rounded-full bg-accent"></span></span>
-              Shammas.Dev_Engine
-            </div>
-            <h1 className="text-6xl font-bold tracking-tight md:text-8xl leading-[0.9] mb-6" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-              <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">{PORTFOLIO_DATA.name}</span>
-            </h1>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-8" style={{ fontFamily: 'var(--font-playfair)' }}>
-              <span className="bg-gradient-to-r from-accent via-indigo-400 to-accent bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">{PORTFOLIO_DATA.title}</span>
-            </h2>
-            <p className="max-w-xl text-lg text-foreground-muted leading-relaxed mb-12">{PORTFOLIO_DATA.tagline}</p>
-            <div className="flex flex-wrap gap-4">
-              <button onClick={() => window.open(`mailto:${PORTFOLIO_DATA.email}`)} className="btn-primary"><Mail size={18} /> Contact</button>
-              <button onClick={() => window.open(PORTFOLIO_DATA.github, "_blank")} className="btn-secondary"><Github size={18} /> GitHub</button>
-            </div>
-          </div>
-        </motion.section>
+    <motion.div
+      ref={ref} custom={index} variants={fadeUp}
+      initial="hidden" animate={inView ? "visible" : "hidden"}
+      onHoverStart={() => setHovered(true)} onHoverEnd={() => setHovered(false)}
+      className="neumorphic-card"
+      style={{
+        borderRadius: "var(--radius-card)",
+        padding: "clamp(22px, 4vw, 30px)",
+        display: "flex", flexDirection: "column", gap: "clamp(12px, 2.5vw, 16px)",
+        cursor: "default",
+        border: hovered ? `1px solid ${project.accent}30` : `1px solid var(--border-subtle)`,
+        position: "relative", overflow: "hidden",
+        transition: "all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)",
+        boxShadow: hovered
+          ? `var(--neumorph-raised-hover), 0 0 30px ${project.accent}15`
+          : `var(--neumorph-raised)`,
+      }}
+    >
+      {/* Background emoji watermark */}
+      <div style={{
+        position: "absolute", top: -16, right: 8, fontSize: "clamp(70px, 18vw, 100px)",
+        opacity: 0.04, pointerEvents: "none", userSelect: "none", lineHeight: 1,
+      }}>
+        {project.emoji}
+      </div>
 
-        {/* STATS SECTION */}
-        <motion.section className="py-24 border-t border-white/[0.06] relative" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PORTFOLIO_DATA.stats.map((stat, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ delay: idx * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <BorderGlow 
-                  className="w-full"
-                  borderRadius={16}
-                  glowRadius={30}
-                  edgeSensitivity={27}
-                  backgroundColor="#120F17"
-                  colors={['#c084fc', '#f472b6', '#38bdf8']}
-                >
-                  <div className="bg-background-elevated/40 p-8 h-full flex flex-col items-center justify-center text-center">
-                    <div className="p-4 rounded-2xl bg-accent/10 border border-accent/20 text-accent mb-6 inline-block">
-                      {stat.icon}
-                    </div>
-                    <div className="text-5xl font-bold text-white mb-2" style={{ fontFamily: 'var(--font-outfit)' }}>{stat.value}</div>
-                    <p className="font-mono text-[10px] tracking-[0.2em] text-foreground-muted uppercase mb-2">{stat.label}</p>
-                    <p className="text-sm text-foreground-subtle">{stat.desc}</p>
-                  </div>
-                </BorderGlow>
-              </motion.div>
-            ))}
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{
+            fontSize: "clamp(10px, 2vw, 11px)",
+            fontFamily: "var(--font-mono)",
+            color: project.accent,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            marginBottom: 6,
+            opacity: 0.9,
+          }}>
+            {project.category}
           </div>
-        </motion.section>
+          <h3 style={{
+            fontFamily: "var(--font-heading)",
+            fontSize: "clamp(20px, 4.5vw, 24px)",
+            fontWeight: 800,
+            color: "var(--text-primary)",
+            margin: 0,
+            letterSpacing: "-0.02em",
+          }}>
+            {project.title}
+          </h3>
+        </div>
+        <span style={{
+          fontSize: "clamp(26px, 6vw, 34px)", flexShrink: 0,
+          filter: hovered ? `drop-shadow(0 0 8px ${project.accent}60)` : "none",
+          transition: "filter 0.3s ease",
+        }}>
+          {project.emoji}
+        </span>
+      </div>
 
-        {/* PROJECT SLIDER */}
-        <section className="py-32 border-t border-white/[0.06] relative">
-          <div className="mb-16 text-center">
-            <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-4">Project Archive</h3>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white" style={{ fontFamily: 'var(--font-outfit)' }}>Software Engineering</h2>
-            <p className="mt-6 text-lg text-foreground-muted max-w-2xl mx-auto">A curated collection of production-grade applications impacting millions of users worldwide</p>
+      {/* Description */}
+      <p style={{
+        fontFamily: "var(--font-body)",
+        fontSize: "clamp(13px, 2.5vw, 14px)",
+        color: "var(--text-secondary)",
+        margin: 0,
+        lineHeight: 1.7,
+      }}>
+        {project.description}
+      </p>
+
+      {/* Tech stack tags */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        {project.stack.map((t) => <Tag key={t} label={t} accent={project.accent} />)}
+      </div>
+
+      {/* Cover image */}
+      {project.coverUrl && (
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          style={{
+            borderRadius: 16, overflow: "hidden",
+            border: `1px solid ${project.accent}20`,
+            boxShadow: `inset 0 0 20px ${project.accent}08`,
+          }}
+        >
+          <img
+            src={project.coverUrl}
+            alt={`${project.title} screenshot`}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        </motion.div>
+      )}
+
+      {/* Store links */}
+      {project.links.length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
+          {project.links.map((l) => <LinkButton key={l.label} link={l} accent={project.accent} />)}
+        </div>
+      )}
+    </motion.div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// TIMELINE CARD (Experience & Education)
+// ─────────────────────────────────────────────
+function TimelineCard({ item, index, type }) {
+  const [hovered, setHovered] = useState(false);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const accent = type === "experience" ? "#FF4500" : "#00BFFF";
+  const emoji = type === "experience" ? "💼" : "🎓";
+  const subtitle = type === "experience" ? item.company : item.institution;
+
+  return (
+    <motion.div
+      ref={ref} custom={index} variants={fadeUp}
+      initial="hidden" animate={inView ? "visible" : "hidden"}
+      onHoverStart={() => setHovered(true)} onHoverEnd={() => setHovered(false)}
+      className="neumorphic-card"
+      style={{
+        borderRadius: "var(--radius-card)",
+        padding: "clamp(22px, 4vw, 28px)",
+        display: "flex", flexDirection: "column", gap: "clamp(10px, 2vw, 14px)",
+        cursor: "default",
+        border: hovered ? `1px solid ${accent}30` : `1px solid var(--border-subtle)`,
+        position: "relative", overflow: "hidden",
+        transition: "all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)",
+        boxShadow: hovered
+          ? `var(--neumorph-raised-hover), 0 0 20px ${accent}10`
+          : `var(--neumorph-raised)`,
+      }}
+    >
+      {/* Background emoji watermark */}
+      <div style={{
+        position: "absolute", top: -14, right: 10, fontSize: "clamp(60px, 15vw, 90px)",
+        opacity: 0.04, pointerEvents: "none", userSelect: "none", lineHeight: 1,
+      }}>
+        {emoji}
+      </div>
+
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{
+            fontSize: "clamp(10px, 2vw, 11px)",
+            fontFamily: "var(--font-mono)",
+            color: accent,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            marginBottom: 6,
+            opacity: 0.9,
+            display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap",
+          }}>
+            <span>{subtitle}</span>
+            <span style={{ opacity: 0.4 }}>•</span>
+            <span>{item.period}</span>
           </div>
+          <h3 style={{
+            fontFamily: "var(--font-heading)",
+            fontSize: "clamp(17px, 3.5vw, 21px)",
+            fontWeight: 800,
+            color: "var(--text-primary)",
+            margin: 0,
+            letterSpacing: "-0.02em",
+          }}>
+            {item.title}
+          </h3>
+        </div>
+      </div>
 
-          <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 flex justify-between px-2 md:-px-16 pointer-events-none z-30">
-            <button onClick={() => paginate(-1)} className="pointer-events-auto p-4 md:p-6 rounded-full border border-white/5 hover:border-accent/40 bg-background-base/20 backdrop-blur-sm transition-all text-foreground-muted hover:text-white group">
-              <ChevronLeft size={32} strokeWidth={1} />
-            </button>
-            <button onClick={() => paginate(1)} className="pointer-events-auto p-4 md:p-6 rounded-full border border-white/5 hover:border-accent/40 bg-background-base/20 backdrop-blur-sm transition-all text-foreground-muted hover:text-white group">
-              <ChevronRight size={32} strokeWidth={1} />
-            </button>
-          </div>
+      {/* Description */}
+      <p style={{
+        fontFamily: "var(--font-body)",
+        fontSize: "clamp(13px, 2.5vw, 14px)",
+        color: "var(--text-secondary)",
+        margin: 0,
+        lineHeight: 1.7,
+        whiteSpace: "pre-line",
+      }}>
+        {item.description}
+      </p>
 
-          <div className="relative min-h-[600px] flex items-center justify-center">
-            <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.div 
-                key={activeIdx} 
-                initial={{ x: direction > 0 ? 100 : -100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: direction > 0 ? -100 : 100, opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full max-w-6xl"
-              >
-                <BorderGlow 
-                  className="w-full"
-                  borderRadius={34}
-                  glowRadius={60}
-                  edgeSensitivity={27}
-                  backgroundColor="#120F17"
-                  colors={['#c084fc', '#f472b6', '#38bdf8']}
-                >
-                  <div className="flex flex-col lg:flex-row min-h-[550px] bg-background-elevated/40">
-                    <div className="relative w-full lg:w-[55%] h-[300px] lg:h-auto border-b lg:border-b-0 lg:border-r border-white/10 overflow-hidden">
-                      <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover grayscale-[20%]" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-background-base/40 to-transparent" />
-                      <a href={project.github} target="_blank" className="absolute bottom-6 right-6 flex items-center gap-2 bg-background-base/80 backdrop-blur-md border border-white/20 px-4 py-2 rounded-lg text-xs font-mono text-white hover:bg-accent transition-all z-20"><Code size={14} /> SOURCE_CODE</a>
-                    </div>
-                    <div className="flex-1 p-8 lg:p-14 flex flex-col justify-center">
-                      <div className="flex items-center gap-4 mb-6">
-                         <div className="p-3 rounded-2xl bg-accent/10 border border-accent/20 text-accent">{project.icon}</div>
-                         <div>
-                            <p className="font-mono text-[10px] tracking-[0.2em] text-accent uppercase">{project.type}</p>
-                            <h4 className="text-3xl lg:text-5xl font-bold tracking-tight text-white">{project.title}</h4>
-                         </div>
-                      </div>
-                      <p className="text-lg text-foreground-muted leading-relaxed mb-10">{project.desc}</p>
-                      <div className="flex flex-wrap gap-2 mb-10">
-                        {project.stack.map(s => (
-                          <span key={s} className="px-3 py-1 rounded-md bg-white/[0.03] border border-white/10 font-mono text-[10px] text-foreground-subtle uppercase tracking-widest">{s}</span>
-                        ))}
-                      </div>
-                      <button onClick={() => window.open(project.live, "_blank")} className="btn-primary w-fit uppercase text-xs tracking-[0.2em]">Explore Project <ArrowUpRight size={18} /></button>
-                    </div>
-                  </div>
-                </BorderGlow>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </section>
+      {/* Links */}
+      {item.links && Object.keys(item.links).length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
+          {Object.entries(item.links).map(([label, url]) => (
+            <LinkButton key={label} link={{ label: label.charAt(0).toUpperCase() + label.slice(1), url, icon: "🔗" }} accent={accent} />
+          ))}
+        </div>
+      )}
+    </motion.div>
+  );
+}
 
-        {/* TECH STACK SHOWCASE */}
-        <section className="py-32 border-t border-white/[0.06]">
-          <div className="mb-16 text-center">
-            <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-4">Arsenal</h3>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white" style={{ fontFamily: 'var(--font-outfit)' }}>Technology Stack</h2>
-            <p className="mt-6 text-lg text-foreground-muted max-w-2xl mx-auto">Handpicked tools and frameworks crafted for performance, scalability, and user delight</p>
-          </div>
+// ─────────────────────────────────────────────
+// CONTACT SECTION  (EmailJS powered)
+// ─────────────────────────────────────────────
+function ContactSection({ email, github }) {
+  const formRef = useRef(null);
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { once: true, margin: "-80px" });
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-            {SKILL_ICONS.map((icon, idx) => (
+  const [form, setForm] = useState({ from_name: "", reply_to: "", message: "" });
+  const [status, setStatus] = useState("idle");
+
+  const handleChange = (e) =>
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        EMAILJS_PUBLIC_KEY
+      );
+      setStatus("success");
+      setForm({ from_name: "", reply_to: "", message: "" });
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setStatus("error");
+    }
+  };
+
+  const sideLinks = [
+    { icon: "✉", label: "Email", value: email, href: `mailto:${email}` },
+    { icon: "◉", label: "GitHub", value: "shammaskhann", href: github },
+  ];
+
+  return (
+    <section ref={sectionRef} className="container section">
+      {/* Section header */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        style={{ marginBottom: 48, textAlign: "center" }}
+      >
+        <p className="section-subtitle">
+          Let's Work Together
+        </p>
+        <h2 className="section-title">
+          Get in Touch
+        </h2>
+        <p style={{
+          fontFamily: "var(--font-body)", fontSize: 15, color: "var(--text-secondary)",
+          margin: "0 auto", maxWidth: 600, lineHeight: 1.7, textAlign: "center",
+        }}>
+          Have a project in mind? Drop a message and I'll get back to you within 24 hours.
+        </p>
+      </motion.div>
+
+      {/* Two-column layout */}
+      <div className="contact-grid">
+        {/* ── FORM ── */}
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <AnimatePresence mode="wait">
+            {status === "success" ? (
               <motion.div
-                key={idx}
-                initial={{ y: 10, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ delay: idx * 0.05 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.15, rotate: 5 }}
-                className="group relative"
+                key="success"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                className="neumorphic-card"
+                style={{
+                  background: "var(--bg-surface)",
+                  border: "1px solid rgba(255, 69, 0, 0.2)",
+                  borderRadius: "var(--radius-card)",
+                  padding: "48px 32px",
+                  textAlign: "center",
+                }}
               >
-                <div className="relative p-6 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:border-accent/40 cursor-pointer">
-                  <img src={icon} alt={`tech-${idx}`} className="w-12 h-12 mx-auto group-hover:brightness-125 transition-all" />
-                  <div className="absolute inset-0 rounded-2xl bg-accent/5 opacity-0 group-hover:opacity-100 transition-all" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* CARRIER LOG */}
-        <section className="py-32 border-t border-white/[0.06]">
-          <div className="mb-16">
-            <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-4">Carrier Log</h3>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white" style={{ fontFamily: 'var(--font-outfit)' }}>Experience Timeline</h2>
-            <p className="mt-6 text-lg text-foreground-muted">Professional journey building scalable, user-centric mobile applications</p>
-          </div>
-
-          {/* Wrapper with horizontal touch-scrolling enabled, native scrollbars fully hidden */}
-          <div 
-            ref={scrollRef}
-            onScroll={handleTimelineScroll}
-            className="flex lg:grid lg:grid-cols-3 gap-6 overflow-x-auto pb-4 lg:pb-0 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {PORTFOLIO_DATA.experience.map((exp, i) => (
-              <div key={i} className="min-w-[90%] md:min-w-[48%] lg:min-w-0 snap-center flex flex-col h-full">
-                <BorderGlow 
-                  className="w-full flex-1"
-                  borderRadius={16}
-                  glowRadius={30}
-                  edgeSensitivity={30}
-                  backgroundColor="#120F17"
+                <div style={{ fontSize: 52, marginBottom: 16 }}>🚀</div>
+                <h3 style={{
+                  fontFamily: "var(--font-heading)", fontSize: 24,
+                  fontWeight: 800, color: "var(--accent)", margin: "0 0 8px",
+                  textShadow: "0 0 20px rgba(255, 69, 0, 0.4)",
+                }}>
+                  Message Sent!
+                </h3>
+                <p style={{
+                  fontFamily: "var(--font-body)", color: "var(--text-secondary)",
+                  margin: "0 0 28px", fontSize: 15,
+                }}>
+                  Thanks for reaching out. I'll reply shortly.
+                </p>
+                <motion.button
+                  whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+                  onClick={() => setStatus("idle")}
+                  className="btn neumorphic-btn btn-primary"
+                  style={{ cursor: "pointer" }}
                 >
-                  <div className="bg-background-elevated/40 h-full p-8 flex flex-col justify-between">
-                    <div>
-                      <span className="text-[10px] font-mono text-accent mb-4 block uppercase tracking-widest">{exp.period}</span>
-                      <h4 className="text-2xl font-bold mb-1 text-white tracking-tight">{exp.company}</h4>
-                      <p className="text-foreground-muted text-sm mb-6 font-medium">{exp.title}</p>
-                      <p className="text-sm text-foreground-subtle leading-relaxed mb-8">{exp.desc}</p>
-                    </div>
-                  </div>
-                </BorderGlow>
-              </div>
-            ))}
-          </div>
-
-          {/* Animated Interactive Dot Pagination Indicators for mobile view */}
-          <div className="flex lg:hidden justify-center items-center gap-2.5 mt-8">
-            {PORTFOLIO_DATA.experience.map((_, i) => (
-              <div
-                key={i}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  experienceIdx === i ? "w-6 bg-accent" : "w-1.5 bg-white/20"
-                }`}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* CONTACT SECTION */}
-        <section id="contact" className="py-32 border-t border-white/[0.06]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            <div className="lg:col-span-5">
-              <h3 className="font-mono text-[10px] tracking-[0.3em] text-accent uppercase mb-6">Contact</h3>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-8" style={{ fontFamily: 'var(--font-outfit)' }}>Let's Build Something Great</h2>
-              <p className="text-foreground-muted mb-8">Got an exciting mobile app idea? Let's collaborate and turn your vision into reality. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
-              <div className="space-y-6">
-                <a href={`mailto:${PORTFOLIO_DATA.email}`} className="flex items-center gap-4 text-foreground-muted hover:text-white transition-all group"><div className="h-12 w-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-accent"><Mail size={20} /></div><span className="font-mono text-sm">{PORTFOLIO_DATA.email}</span></a>
-                <a href={PORTFOLIO_DATA.github} target="_blank" className="flex items-center gap-4 text-foreground-muted hover:text-white transition-all group"><div className="h-12 w-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-accent"><Github size={20} /></div><span className="font-mono text-sm">github/shammaskhann</span></a>
-              </div>
-            </div>
-            <div className="lg:col-span-7">
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <input name="from_name" required className="w-full bg-white/[0.03] border border-white/10 rounded-xl p-4 text-sm focus:border-accent outline-none text-white" placeholder="IDENT_NAME" />
-                  <input name="reply_to" type="email" required className="w-full bg-white/[0.03] border border-white/10 rounded-xl p-4 text-sm focus:border-accent outline-none text-white" placeholder="REPLY_ADDR" />
+                  Send another
+                </motion.button>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form" ref={formRef} onSubmit={handleSubmit}
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                className="neumorphic-card"
+                style={{
+                  borderRadius: "var(--radius-card)",
+                  padding: "32px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 20,
+                }}
+              >
+                {/* Name */}
+                <div className="form-group">
+                  <label className="form-label">Your Name</label>
+                  <input
+                    name="from_name" value={form.from_name} onChange={handleChange}
+                    placeholder="John Doe" required className="form-input neumorphic-input"
+                  />
                 </div>
-                <textarea name="message" required rows={5} className="w-full bg-white/[0.03] border border-white/10 rounded-xl p-4 text-sm focus:border-accent outline-none text-white resize-none" placeholder="TRANSMISSION_PAYLOAD..." />
-                <button type="submit" className="w-full btn-primary justify-center uppercase tracking-widest">{status === "sending" ? "TRANSMITTING..." : "Send Transmission"}</button>
-                {status === "success" && <p className="text-center font-mono text-xs text-green-400 mt-4">Payload delivered.</p>}
-              </form>
+
+                {/* Email */}
+                <div className="form-group">
+                  <label className="form-label">Your Email</label>
+                  <input
+                    type="email" name="reply_to" value={form.reply_to}
+                    onChange={handleChange} placeholder="john@example.com"
+                    required className="form-input neumorphic-input"
+                  />
+                </div>
+
+                {/* Message */}
+                <div className="form-group">
+                  <label className="form-label">Message</label>
+                  <textarea
+                    name="message" value={form.message} onChange={handleChange}
+                    placeholder="Tell me about your project…" required rows={5}
+                    className="form-input neumorphic-input"
+                    style={{ resize: "vertical", minHeight: 130 }}
+                  />
+                </div>
+
+                {/* Error banner */}
+                {status === "error" && (
+                  <div style={{
+                    background: "rgba(255, 69, 0, 0.08)",
+                    border: "1px solid rgba(255, 69, 0, 0.2)",
+                    borderRadius: 12, padding: "12px 16px",
+                    fontFamily: "var(--font-body)", fontSize: 13,
+                    color: "#FF6B4A",
+                  }}>
+                    Something went wrong. Please try again or email me directly.
+                  </div>
+                )}
+
+                {/* Submit */}
+                <motion.button
+                  type="submit" disabled={status === "sending"}
+                  whileHover={status !== "sending" ? { scale: 1.02 } : {}}
+                  whileTap={status !== "sending" ? { scale: 0.97 } : {}}
+                  className="btn neumorphic-btn btn-primary"
+                  style={{
+                    opacity: status === "sending" ? 0.7 : 1,
+                    cursor: status === "sending" ? "not-allowed" : "pointer",
+                    width: "100%",
+                  }}
+                >
+                  {status === "sending" ? (
+                    <>
+                      <motion.span
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                        style={{ display: "inline-block" }}
+                      >◌</motion.span>
+                      Sending…
+                    </>
+                  ) : "✉ Send Message"}
+                </motion.button>
+              </motion.form>
+            )}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* ── SIDEBAR ── */}
+        <motion.div
+          initial={{ opacity: 0, x: 24 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: "flex", flexDirection: "column", gap: 16 }}
+        >
+          {sideLinks.map((item) => (
+            <motion.a
+              key={item.label} href={item.href}
+              target={item.href.startsWith("mailto") ? undefined : "_blank"}
+              rel="noopener noreferrer"
+              whileHover={{ x: 4, boxShadow: `var(--neumorph-raised-hover), 0 0 16px rgba(255, 69, 0, 0.1)` }}
+              className="neumorphic-card"
+              style={{
+                display: "flex", alignItems: "center", gap: 14,
+                borderRadius: 20, padding: "18px 20px",
+                textDecoration: "none",
+                transition: "all 0.3s ease",
+              }}
+            >
+              <span style={{
+                fontSize: 18, width: 44, height: 44, borderRadius: 14,
+                background: "var(--bg-recessed)", display: "flex", alignItems: "center",
+                justifyContent: "center", flexShrink: 0, color: "var(--accent)",
+                boxShadow: "var(--neumorph-inset-sm)",
+              }}>
+                {item.icon}
+              </span>
+              <div style={{ textAlign: "left" }}>
+                <div style={{
+                  fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--text-tertiary)",
+                  letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 3,
+                }}>
+                  {item.label}
+                </div>
+                <div style={{
+                  fontFamily: "var(--font-body)", fontSize: 14,
+                  fontWeight: 600, color: "var(--text-primary)",
+                }}>
+                  {item.value}
+                </div>
+              </div>
+            </motion.a>
+          ))}
+
+          {/* Response time badge */}
+          <div className="neumorphic-card" style={{
+            borderRadius: 20, padding: "16px 20px",
+            display: "flex", alignItems: "center", gap: 12,
+          }}>
+            <span style={{
+              width: 8, height: 8, borderRadius: "50%",
+              background: "var(--accent)",
+              boxShadow: "0 0 8px var(--accent), 0 0 20px rgba(255, 69, 0, 0.3)",
+              flexShrink: 0,
+            }} />
+            <span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--text-secondary)" }}>
+              Typically replies within <strong style={{ color: "var(--text-primary)" }}>24 hours</strong>
+            </span>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────
+// MAIN APP
+// ─────────────────────────────────────────────
+export default function Portfolio() {
+  const { name, title, tagline, email, github, skills, projects, experience, education } = PORTFOLIO_DATA;
+
+  return (
+    <div className="portfolio-app">
+
+      {/* ── HERO ── */}
+      <section className="container hero-wrapper">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {/* Available badge */}
+          <div className="available-badge">
+            <span className="status-dot" />
+            AVAILABLE FOR WORK
+          </div>
+
+          <h1 className="hero-title">
+            {name}
+          </h1>
+
+          <h2 className="hero-role">
+            {title}
+          </h2>
+
+          <p className="hero-description">
+            {tagline}
+          </p>
+
+          {/* CTA buttons */}
+          <div className="hero-actions">
+            <motion.a
+              href={`mailto:${email}`}
+              whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+              className="btn neumorphic-btn btn-primary"
+            >
+              ✉ Get in touch
+            </motion.a>
+            <motion.a
+              href={github} target="_blank" rel="noopener noreferrer"
+              whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+              className="btn neumorphic-btn btn-outline"
+            >
+              ◉ GitHub
+            </motion.a>
+          </div>
+        </motion.div>
+
+        {/* Skills strip (recessed tags) */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          style={{
+            marginTop: "clamp(44px, 8vw, 60px)",
+            display: "flex", flexWrap: "wrap", gap: "clamp(8px, 2vw, 10px)",
+          }}
+        >
+          {skills.map((s) => (
+            <span key={s} className="neumorphic-tag">
+              {s}
+            </span>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ padding: "clamp(32px, 6vw, 64px) 0" }}>
+        <div className="divider" />
+      </div>
+
+      {/* ── PROJECTS ── */}
+      <section className="container section" style={{ paddingTop: 0 }}>
+        <AnimatedSection>
+          <motion.div variants={fadeUp} style={{ marginBottom: 48 }}>
+            <p className="section-subtitle">Selected Work</p>
+            <h2 className="section-title">Projects</h2>
+          </motion.div>
+        </AnimatedSection>
+
+        <div className="projects-grid">
+          {projects.map((project, i) => (
+            <ProjectCard key={project.id} project={project} index={i} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ padding: "clamp(32px, 6vw, 64px) 0" }}>
+        <div className="divider" />
+      </div>
+
+      {/* ── EXPERIENCE & EDUCATION ── */}
+      <section className="container section" style={{ paddingTop: 0 }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: "clamp(32px, 6vw, 48px)"
+        }}>
+
+          {/* Experience */}
+          <div>
+            <AnimatedSection>
+              <motion.div variants={fadeUp} style={{ marginBottom: 32 }}>
+                <p className="section-subtitle">Career</p>
+                <h2 className="section-title">Experience</h2>
+              </motion.div>
+            </AnimatedSection>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              {experience?.map((item, i) => (
+                <TimelineCard key={`exp-${i}`} item={item} index={i} type="experience" />
+              ))}
             </div>
           </div>
-        </section>
-      </main>
 
-      <footer className="py-20 border-t border-white/[0.06] bg-background-deep text-center relative z-10 font-mono text-[10px] tracking-[0.5em] text-foreground-subtle uppercase">&copy; {new Date().getFullYear()} {PORTFOLIO_DATA.name} // BUILT FOR SCALE</footer>
+          {/* Education */}
+          <div>
+            <AnimatedSection>
+              <motion.div variants={fadeUp} style={{ marginBottom: 32 }}>
+                <p className="section-subtitle">Academic</p>
+                <h2 className="section-title">Education</h2>
+              </motion.div>
+            </AnimatedSection>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              {education?.map((item, i) => (
+                <TimelineCard key={`edu-${i}`} item={item} index={i} type="education" />
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ padding: "clamp(32px, 6vw, 64px) 0" }}>
+        <div className="divider" />
+      </div>
+
+      {/* ── CONTACT ── */}
+      <ContactSection email={email} github={github} />
+
+      {/* ── FOOTER ── */}
+      <footer className="portfolio-footer">
+        <p style={{
+          fontFamily: "var(--font-mono)", fontSize: 12,
+          color: "var(--text-tertiary)", margin: 0,
+          letterSpacing: "0.05em",
+        }}>
+          {name} · Flutter Developer · {new Date().getFullYear()}
+        </p>
+      </footer>
     </div>
   );
 }
