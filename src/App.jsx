@@ -21,7 +21,7 @@ const PORTFOLIO_DATA = {
   name: "Shammas Khan",
   title: "Flutter App Developer",
   tagline: "Crafting polished mobile experiences — from concept to store.",
-  email: "shammaskhann@gmail.com",
+  email: "shammas.khan90321@gmail.com",
   github: "https://github.com/shammaskhann",
 
   skills: [

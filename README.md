@@ -249,7 +249,7 @@ Contributions are welcome! Feel free to:
 
 For issues or questions:
 - Open a GitHub Issue
-- Email: shammaskhann@gmail.com
+- Email: shammas.khan90321@gmail.com
 - Check DEPLOYMENT_GUIDE.md for detailed setup instructions
 
 ---
