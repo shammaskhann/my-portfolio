@@ -1,0 +1,56 @@
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS — warm charcoal, signal orange, paper
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  /* canvas */
+  --bg: #141618;
+  --bg-soft: #191b1e;
+  --surface: #212427;
+  --surface-2: #26292d;
+  --recessed: #151719;
+
+  /* paper / print */
+  --paper: #ede6d9;
+  --paper-2: #e3dac9;
+  --ink: #1b1b18;
+  --ink-2: #55544c;
+
+  /* text */
+  --text: #f2efea;
+  --text-2: #b3aea7;
+  --text-3: #8e8981;
+
+  /* accent */
+  --accent: #ff4500;
+  --accent-ink: #ff6b3d;
+  --accent-soft: rgba(255, 69, 0, 0.12);
+  --accent-line: rgba(255, 69, 0, 0.35);
+
+  /* lines + shadows */
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.15);
+  --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.38);
+  --shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 16px 40px rgba(0, 0, 0, 0.22);
+
+  /* radii */
+  --radius-lg: 28px;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-pill: 999px;
+
+  /* type */
+  --font-display: "Syne", "Arial Black", sans-serif;
+  --font-body: "Outfit", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* layout */
+  --container: 1280px;
+  --gutter: clamp(20px, 4vw, 40px);
+  --section-y: clamp(72px, 9vw, 128px);
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-1: 180ms;
+  --dur-2: 320ms;
+  --dur-3: 560ms;
+}

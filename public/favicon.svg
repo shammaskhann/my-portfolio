@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SK">
+  <rect width="64" height="64" rx="15" fill="#141618"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="13.5" fill="none" stroke="#FF4500" stroke-opacity=".35"/>
+  <text x="30" y="42" fill="#F2EFEA" font-family="Helvetica Neue, Arial, sans-serif" font-size="27" font-weight="800" letter-spacing="-2">SK</text>
+  <circle cx="49" cy="44" r="4" fill="#FF4500"/>
+</svg>

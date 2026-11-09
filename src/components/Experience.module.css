@@ -1,0 +1,334 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(40px, 6vw, 96px);
+}
+
+.aside {
+  position: sticky;
+  top: 112px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrowIndex {
+  color: var(--text-3);
+}
+
+.eyebrowDash {
+  width: 28px;
+  height: 1px;
+  background: var(--line-strong);
+}
+
+.title {
+  font-size: clamp(32px, 3.6vw, 46px);
+  letter-spacing: -0.04em;
+}
+
+.lead {
+  margin-top: 16px;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.stats {
+  display: flex;
+  gap: 28px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stats strong {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.stats span {
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nowCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.nowCard > :first-child {
+  margin-top: 5px;
+}
+
+.nowLabel {
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.nowRole {
+  margin-top: 3px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.nowCompany {
+  color: var(--text-2);
+  font-size: 11.5px;
+}
+
+/* roles */
+.list {
+  border-top: 1px solid var(--line);
+}
+
+.role {
+  border-bottom: 1px solid var(--line);
+  transition: background var(--dur-3) var(--ease);
+}
+
+.roleOpen {
+  background: linear-gradient(90deg, rgba(255, 69, 0, 0.045), transparent 70%);
+}
+
+.roleButton {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr) 32px;
+  align-items: start;
+  gap: 24px;
+  width: 100%;
+  padding: 24px 8px;
+  color: var(--text);
+  text-align: left;
+}
+
+.period {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-top: 3px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.current {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  padding: 3px 6px;
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.roleTitle {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 25px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  transition: color var(--dur-2) var(--ease);
+}
+
+.roleButton:hover .roleTitle {
+  color: var(--accent-ink);
+}
+
+.company {
+  color: var(--text-2);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.summary {
+  display: -webkit-box;
+  max-width: 66ch;
+  margin-top: 8px;
+  overflow: hidden;
+  color: var(--text-3);
+  font-size: 13.5px;
+  line-height: 1.6;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.toggle {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--text-2);
+  transition:
+    color var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease),
+    background var(--dur-2) var(--ease);
+}
+
+.roleButton:hover .toggle {
+  border-color: rgba(255, 255, 255, 0.26);
+  color: var(--text);
+}
+
+.roleOpen .toggle {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.panel {
+  overflow: hidden;
+}
+
+.panelInner {
+  padding: 0 8px 28px 164px;
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bullets li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 8px;
+  color: var(--text-2);
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.bulletIndex {
+  padding-top: 2px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+}
+
+.docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.docLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding-inline: 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-2);
+  font-size: 12px;
+  transition:
+    color var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease),
+    background var(--dur-2) var(--ease);
+}
+
+.docLink:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .aside {
+    position: static;
+  }
+  .nowCard {
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 720px) {
+  .roleButton {
+    grid-template-columns: minmax(0, 1fr) 30px;
+    gap: 10px;
+    padding: 20px 2px;
+  }
+  .period {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-top: 0;
+  }
+  .main {
+    grid-column: 1;
+  }
+  .toggle {
+    grid-column: 2;
+    grid-row: 2;
+    width: 30px;
+    height: 30px;
+  }
+  .summary {
+    font-size: 13px;
+  }
+  .panelInner {
+    padding: 0 2px 22px;
+  }
+  .bullets li {
+    grid-template-columns: 20px minmax(0, 1fr);
+    font-size: 13px;
+  }
+}
